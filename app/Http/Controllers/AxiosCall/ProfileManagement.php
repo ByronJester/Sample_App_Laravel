@@ -6,21 +6,30 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\ProfileManagementRepository\ProfileRepository;
 
-class ProfileManagement extends Controller
-{
+class ProfileManagement extends Controller{
+
   protected $todo;
 
   public function __construct(ProfileRepository $todo){
     $this->repo = $todo;
 
   }
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @return \Illuminate\Http\Response
-   */
-  public function setupProfile(Request $request){
+
+  public function index(Request $request){
+    $id = $request->session()->get('id');
+
+    if($id == ""){
+      return redirect('/logout');
+    }else{
+      return $this->repo->checkUser($id);
+    }
+  }
+
+  public function create(){
+    
+  }
+
+  public function store(Request $request){
     $id = $request->session()->get('id');
 
     if($id == ""){
@@ -28,6 +37,31 @@ class ProfileManagement extends Controller
     }else{
       return $this->repo->setupProfile($request, $id);
     }
+  }
 
+
+  public function show($id){
+
+  }
+
+
+  public function edit($id){
+
+  }
+
+
+  public function update(Request $request, $id){
+    $session = $request->session()->get('id');
+
+    if($session == ""){
+      return redirect('/logout');
+    }else{
+      return $this->repo->updateUserProfile($request, $id);
+    }
+  }
+
+
+  public function destroy($id){
+    return $this->repo->deleteProfile($id);
   }
 }

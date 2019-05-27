@@ -3,7 +3,7 @@
 
 @section('body')
 <div id = "app">
-	<h1> HAHAHAHA</h1>
+	<news-feed></news-feed>
 </div> 
 <script src="{{asset('js/app.js')}}"></script>
-@endsection
+@endsection 

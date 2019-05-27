@@ -16,9 +16,10 @@ window.Vue = require('vue');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
+ 
 Vue.component('account-management', require('./components/Users.vue'));
 Vue.component('profile-management', require('./components/Profile.vue'));
+Vue.component('news-feed', require('./components/Newsfeed.vue'));
 
 const app = new Vue({
     el: '#app'

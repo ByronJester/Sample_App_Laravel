@@ -70,7 +70,7 @@
 "use strict";
 
 
-var bind = __webpack_require__(4);
+var bind = __webpack_require__(7);
 var isBuffer = __webpack_require__(21);
 
 /*global toString:true*/
@@ -424,10 +424,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(6);
+    adapter = __webpack_require__(9);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(6);
+    adapter = __webpack_require__(9);
   }
   return adapter;
 }
@@ -498,474 +498,10 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(20);
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function bind(fn, thisArg) {
-  return function wrap() {
-    var args = new Array(arguments.length);
-    for (var i = 0; i < args.length; i++) {
-      args[i] = arguments[i];
-    }
-    return fn.apply(thisArg, args);
-  };
-};
-
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports) {
-
-// shim for using process in browser
-var process = module.exports = {};
-
-// cached from whatever global is present so that test runners that stub it
-// don't break things.  But we need to wrap it in a try catch in case it is
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
-// function because try/catches deoptimize in certain engines.
-
-var cachedSetTimeout;
-var cachedClearTimeout;
-
-function defaultSetTimout() {
-    throw new Error('setTimeout has not been defined');
-}
-function defaultClearTimeout () {
-    throw new Error('clearTimeout has not been defined');
-}
-(function () {
-    try {
-        if (typeof setTimeout === 'function') {
-            cachedSetTimeout = setTimeout;
-        } else {
-            cachedSetTimeout = defaultSetTimout;
-        }
-    } catch (e) {
-        cachedSetTimeout = defaultSetTimout;
-    }
-    try {
-        if (typeof clearTimeout === 'function') {
-            cachedClearTimeout = clearTimeout;
-        } else {
-            cachedClearTimeout = defaultClearTimeout;
-        }
-    } catch (e) {
-        cachedClearTimeout = defaultClearTimeout;
-    }
-} ())
-function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-        //normal enviroments in sane situations
-        return setTimeout(fun, 0);
-    }
-    // if setTimeout wasn't available but was latter defined
-    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-        cachedSetTimeout = setTimeout;
-        return setTimeout(fun, 0);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedSetTimeout(fun, 0);
-    } catch(e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-            return cachedSetTimeout.call(null, fun, 0);
-        } catch(e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-            return cachedSetTimeout.call(this, fun, 0);
-        }
-    }
-
-
-}
-function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-        //normal enviroments in sane situations
-        return clearTimeout(marker);
-    }
-    // if clearTimeout wasn't available but was latter defined
-    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-        cachedClearTimeout = clearTimeout;
-        return clearTimeout(marker);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedClearTimeout(marker);
-    } catch (e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-            return cachedClearTimeout.call(null, marker);
-        } catch (e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-            return cachedClearTimeout.call(this, marker);
-        }
-    }
-
-
-
-}
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-        return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        runTimeout(drainQueue);
-    }
-};
-
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-process.prependListener = noop;
-process.prependOnceListener = noop;
-
-process.listeners = function (name) { return [] }
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function() { return 0; };
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(0);
-var settle = __webpack_require__(24);
-var buildURL = __webpack_require__(26);
-var parseHeaders = __webpack_require__(27);
-var isURLSameOrigin = __webpack_require__(28);
-var createError = __webpack_require__(7);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(29);
-
-module.exports = function xhrAdapter(config) {
-  return new Promise(function dispatchXhrRequest(resolve, reject) {
-    var requestData = config.data;
-    var requestHeaders = config.headers;
-
-    if (utils.isFormData(requestData)) {
-      delete requestHeaders['Content-Type']; // Let the browser set it
-    }
-
-    var request = new XMLHttpRequest();
-    var loadEvent = 'onreadystatechange';
-    var xDomain = false;
-
-    // For IE 8/9 CORS support
-    // Only supports POST and GET calls and doesn't returns the response headers.
-    // DON'T do this for testing b/c XMLHttpRequest is mocked, not XDomainRequest.
-    if ("development" !== 'test' &&
-        typeof window !== 'undefined' &&
-        window.XDomainRequest && !('withCredentials' in request) &&
-        !isURLSameOrigin(config.url)) {
-      request = new window.XDomainRequest();
-      loadEvent = 'onload';
-      xDomain = true;
-      request.onprogress = function handleProgress() {};
-      request.ontimeout = function handleTimeout() {};
-    }
-
-    // HTTP basic authentication
-    if (config.auth) {
-      var username = config.auth.username || '';
-      var password = config.auth.password || '';
-      requestHeaders.Authorization = 'Basic ' + btoa(username + ':' + password);
-    }
-
-    request.open(config.method.toUpperCase(), buildURL(config.url, config.params, config.paramsSerializer), true);
-
-    // Set the request timeout in MS
-    request.timeout = config.timeout;
-
-    // Listen for ready state
-    request[loadEvent] = function handleLoad() {
-      if (!request || (request.readyState !== 4 && !xDomain)) {
-        return;
-      }
-
-      // The request errored out and we didn't get a response, this will be
-      // handled by onerror instead
-      // With one exception: request that using file: protocol, most browsers
-      // will return status as 0 even though it's a successful request
-      if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
-        return;
-      }
-
-      // Prepare the response
-      var responseHeaders = 'getAllResponseHeaders' in request ? parseHeaders(request.getAllResponseHeaders()) : null;
-      var responseData = !config.responseType || config.responseType === 'text' ? request.responseText : request.response;
-      var response = {
-        data: responseData,
-        // IE sends 1223 instead of 204 (https://github.com/mzabriskie/axios/issues/201)
-        status: request.status === 1223 ? 204 : request.status,
-        statusText: request.status === 1223 ? 'No Content' : request.statusText,
-        headers: responseHeaders,
-        config: config,
-        request: request
-      };
-
-      settle(resolve, reject, response);
-
-      // Clean up request
-      request = null;
-    };
-
-    // Handle low level network errors
-    request.onerror = function handleError() {
-      // Real errors are hidden from us by the browser
-      // onerror should only fire if it's a network error
-      reject(createError('Network Error', config, null, request));
-
-      // Clean up request
-      request = null;
-    };
-
-    // Handle timeout
-    request.ontimeout = function handleTimeout() {
-      reject(createError('timeout of ' + config.timeout + 'ms exceeded', config, 'ECONNABORTED',
-        request));
-
-      // Clean up request
-      request = null;
-    };
-
-    // Add xsrf header
-    // This is only done if running in a standard browser environment.
-    // Specifically not if we're in a web worker, or react-native.
-    if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(30);
-
-      // Add xsrf header
-      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
-          cookies.read(config.xsrfCookieName) :
-          undefined;
-
-      if (xsrfValue) {
-        requestHeaders[config.xsrfHeaderName] = xsrfValue;
-      }
-    }
-
-    // Add headers to the request
-    if ('setRequestHeader' in request) {
-      utils.forEach(requestHeaders, function setRequestHeader(val, key) {
-        if (typeof requestData === 'undefined' && key.toLowerCase() === 'content-type') {
-          // Remove Content-Type if data is undefined
-          delete requestHeaders[key];
-        } else {
-          // Otherwise add header to the request
-          request.setRequestHeader(key, val);
-        }
-      });
-    }
-
-    // Add withCredentials to request if needed
-    if (config.withCredentials) {
-      request.withCredentials = true;
-    }
-
-    // Add responseType to request if needed
-    if (config.responseType) {
-      try {
-        request.responseType = config.responseType;
-      } catch (e) {
-        // Expected DOMException thrown by browsers not compatible XMLHttpRequest Level 2.
-        // But, this can be suppressed for 'json' type as it can be parsed by default 'transformResponse' function.
-        if (config.responseType !== 'json') {
-          throw e;
-        }
-      }
-    }
-
-    // Handle progress if needed
-    if (typeof config.onDownloadProgress === 'function') {
-      request.addEventListener('progress', config.onDownloadProgress);
-    }
-
-    // Not all browsers support upload events
-    if (typeof config.onUploadProgress === 'function' && request.upload) {
-      request.upload.addEventListener('progress', config.onUploadProgress);
-    }
-
-    if (config.cancelToken) {
-      // Handle cancellation
-      config.cancelToken.promise.then(function onCanceled(cancel) {
-        if (!request) {
-          return;
-        }
-
-        request.abort();
-        reject(cancel);
-        // Clean up request
-        request = null;
-      });
-    }
-
-    if (requestData === undefined) {
-      requestData = null;
-    }
-
-    // Send the request
-    request.send(requestData);
-  });
-};
-
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var enhanceError = __webpack_require__(25);
-
-/**
- * Create an Error with the specified message, config, error code, request and response.
- *
- * @param {string} message The error message.
- * @param {Object} config The config.
- * @param {string} [code] The error code (for example, 'ECONNABORTED').
- * @param {Object} [request] The request.
- * @param {Object} [response] The response.
- * @returns {Error} The created error.
- */
-module.exports = function createError(message, config, code, request, response) {
-  var error = new Error(message);
-  return enhanceError(error, config, code, request, response);
-};
-
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function isCancel(value) {
-  return !!(value && value.__CANCEL__);
-};
-
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * A `Cancel` is an object that is thrown when an operation is canceled.
- *
- * @class
- * @param {string=} message The message.
- */
-function Cancel(message) {
-  this.message = message;
-}
-
-Cancel.prototype.toString = function toString() {
-  return 'Cancel' + (this.message ? ': ' + this.message : '');
-};
-
-Cancel.prototype.__CANCEL__ = true;
-
-module.exports = Cancel;
-
-
-/***/ }),
-/* 10 */
 /***/ (function(module, exports) {
 
 /*
@@ -1047,7 +583,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 11 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -1275,7 +811,7 @@ function applyToTag (styleElement, obj) {
 
 
 /***/ }),
-/* 12 */
+/* 5 */
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -1384,11 +920,475 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(20);
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function bind(fn, thisArg) {
+  return function wrap() {
+    var args = new Array(arguments.length);
+    for (var i = 0; i < args.length; i++) {
+      args[i] = arguments[i];
+    }
+    return fn.apply(thisArg, args);
+  };
+};
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports) {
+
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(0);
+var settle = __webpack_require__(24);
+var buildURL = __webpack_require__(26);
+var parseHeaders = __webpack_require__(27);
+var isURLSameOrigin = __webpack_require__(28);
+var createError = __webpack_require__(10);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(29);
+
+module.exports = function xhrAdapter(config) {
+  return new Promise(function dispatchXhrRequest(resolve, reject) {
+    var requestData = config.data;
+    var requestHeaders = config.headers;
+
+    if (utils.isFormData(requestData)) {
+      delete requestHeaders['Content-Type']; // Let the browser set it
+    }
+
+    var request = new XMLHttpRequest();
+    var loadEvent = 'onreadystatechange';
+    var xDomain = false;
+
+    // For IE 8/9 CORS support
+    // Only supports POST and GET calls and doesn't returns the response headers.
+    // DON'T do this for testing b/c XMLHttpRequest is mocked, not XDomainRequest.
+    if ("development" !== 'test' &&
+        typeof window !== 'undefined' &&
+        window.XDomainRequest && !('withCredentials' in request) &&
+        !isURLSameOrigin(config.url)) {
+      request = new window.XDomainRequest();
+      loadEvent = 'onload';
+      xDomain = true;
+      request.onprogress = function handleProgress() {};
+      request.ontimeout = function handleTimeout() {};
+    }
+
+    // HTTP basic authentication
+    if (config.auth) {
+      var username = config.auth.username || '';
+      var password = config.auth.password || '';
+      requestHeaders.Authorization = 'Basic ' + btoa(username + ':' + password);
+    }
+
+    request.open(config.method.toUpperCase(), buildURL(config.url, config.params, config.paramsSerializer), true);
+
+    // Set the request timeout in MS
+    request.timeout = config.timeout;
+
+    // Listen for ready state
+    request[loadEvent] = function handleLoad() {
+      if (!request || (request.readyState !== 4 && !xDomain)) {
+        return;
+      }
+
+      // The request errored out and we didn't get a response, this will be
+      // handled by onerror instead
+      // With one exception: request that using file: protocol, most browsers
+      // will return status as 0 even though it's a successful request
+      if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
+        return;
+      }
+
+      // Prepare the response
+      var responseHeaders = 'getAllResponseHeaders' in request ? parseHeaders(request.getAllResponseHeaders()) : null;
+      var responseData = !config.responseType || config.responseType === 'text' ? request.responseText : request.response;
+      var response = {
+        data: responseData,
+        // IE sends 1223 instead of 204 (https://github.com/mzabriskie/axios/issues/201)
+        status: request.status === 1223 ? 204 : request.status,
+        statusText: request.status === 1223 ? 'No Content' : request.statusText,
+        headers: responseHeaders,
+        config: config,
+        request: request
+      };
+
+      settle(resolve, reject, response);
+
+      // Clean up request
+      request = null;
+    };
+
+    // Handle low level network errors
+    request.onerror = function handleError() {
+      // Real errors are hidden from us by the browser
+      // onerror should only fire if it's a network error
+      reject(createError('Network Error', config, null, request));
+
+      // Clean up request
+      request = null;
+    };
+
+    // Handle timeout
+    request.ontimeout = function handleTimeout() {
+      reject(createError('timeout of ' + config.timeout + 'ms exceeded', config, 'ECONNABORTED',
+        request));
+
+      // Clean up request
+      request = null;
+    };
+
+    // Add xsrf header
+    // This is only done if running in a standard browser environment.
+    // Specifically not if we're in a web worker, or react-native.
+    if (utils.isStandardBrowserEnv()) {
+      var cookies = __webpack_require__(30);
+
+      // Add xsrf header
+      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
+          cookies.read(config.xsrfCookieName) :
+          undefined;
+
+      if (xsrfValue) {
+        requestHeaders[config.xsrfHeaderName] = xsrfValue;
+      }
+    }
+
+    // Add headers to the request
+    if ('setRequestHeader' in request) {
+      utils.forEach(requestHeaders, function setRequestHeader(val, key) {
+        if (typeof requestData === 'undefined' && key.toLowerCase() === 'content-type') {
+          // Remove Content-Type if data is undefined
+          delete requestHeaders[key];
+        } else {
+          // Otherwise add header to the request
+          request.setRequestHeader(key, val);
+        }
+      });
+    }
+
+    // Add withCredentials to request if needed
+    if (config.withCredentials) {
+      request.withCredentials = true;
+    }
+
+    // Add responseType to request if needed
+    if (config.responseType) {
+      try {
+        request.responseType = config.responseType;
+      } catch (e) {
+        // Expected DOMException thrown by browsers not compatible XMLHttpRequest Level 2.
+        // But, this can be suppressed for 'json' type as it can be parsed by default 'transformResponse' function.
+        if (config.responseType !== 'json') {
+          throw e;
+        }
+      }
+    }
+
+    // Handle progress if needed
+    if (typeof config.onDownloadProgress === 'function') {
+      request.addEventListener('progress', config.onDownloadProgress);
+    }
+
+    // Not all browsers support upload events
+    if (typeof config.onUploadProgress === 'function' && request.upload) {
+      request.upload.addEventListener('progress', config.onUploadProgress);
+    }
+
+    if (config.cancelToken) {
+      // Handle cancellation
+      config.cancelToken.promise.then(function onCanceled(cancel) {
+        if (!request) {
+          return;
+        }
+
+        request.abort();
+        reject(cancel);
+        // Clean up request
+        request = null;
+      });
+    }
+
+    if (requestData === undefined) {
+      requestData = null;
+    }
+
+    // Send the request
+    request.send(requestData);
+  });
+};
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var enhanceError = __webpack_require__(25);
+
+/**
+ * Create an Error with the specified message, config, error code, request and response.
+ *
+ * @param {string} message The error message.
+ * @param {Object} config The config.
+ * @param {string} [code] The error code (for example, 'ECONNABORTED').
+ * @param {Object} [request] The request.
+ * @param {Object} [response] The response.
+ * @returns {Error} The created error.
+ */
+module.exports = function createError(message, config, code, request, response) {
+  var error = new Error(message);
+  return enhanceError(error, config, code, request, response);
+};
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function isCancel(value) {
+  return !!(value && value.__CANCEL__);
+};
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * A `Cancel` is an object that is thrown when an operation is canceled.
+ *
+ * @class
+ * @param {string=} message The message.
+ */
+function Cancel(message) {
+  this.message = message;
+}
+
+Cancel.prototype.toString = function toString() {
+  return 'Cancel' + (this.message ? ': ' + this.message : '');
+};
+
+Cancel.prototype.__CANCEL__ = true;
+
+module.exports = Cancel;
+
+
+/***/ }),
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(14);
-module.exports = __webpack_require__(53);
+module.exports = __webpack_require__(58);
 
 
 /***/ }),
@@ -1404,7 +1404,7 @@ module.exports = __webpack_require__(53);
 
 __webpack_require__(15);
 
-var axios = __webpack_require__(3);
+var axios = __webpack_require__(6);
 
 window.Vue = __webpack_require__(38);
 
@@ -1416,6 +1416,7 @@ window.Vue = __webpack_require__(38);
 
 Vue.component('account-management', __webpack_require__(42));
 Vue.component('profile-management', __webpack_require__(48));
+Vue.component('news-feed', __webpack_require__(53));
 
 var app = new Vue({
   el: '#app'
@@ -1446,7 +1447,7 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__(3);
+window.axios = __webpack_require__(6);
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -31821,7 +31822,7 @@ if (typeof jQuery === 'undefined') {
 
 
 var utils = __webpack_require__(0);
-var bind = __webpack_require__(4);
+var bind = __webpack_require__(7);
 var Axios = __webpack_require__(22);
 var defaults = __webpack_require__(2);
 
@@ -31856,9 +31857,9 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(9);
+axios.Cancel = __webpack_require__(12);
 axios.CancelToken = __webpack_require__(36);
-axios.isCancel = __webpack_require__(8);
+axios.isCancel = __webpack_require__(11);
 
 // Expose all/spread
 axios.all = function all(promises) {
@@ -32018,7 +32019,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 "use strict";
 
 
-var createError = __webpack_require__(7);
+var createError = __webpack_require__(10);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -32437,7 +32438,7 @@ module.exports = InterceptorManager;
 
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(33);
-var isCancel = __webpack_require__(8);
+var isCancel = __webpack_require__(11);
 var defaults = __webpack_require__(2);
 
 /**
@@ -32590,7 +32591,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 "use strict";
 
 
-var Cancel = __webpack_require__(9);
+var Cancel = __webpack_require__(12);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -44899,7 +44900,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(8)))
 
 /***/ }),
 /* 42 */
@@ -44910,7 +44911,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(43)
 }
-var normalizeComponent = __webpack_require__(12)
+var normalizeComponent = __webpack_require__(5)
 /* script */
 var __vue_script__ = __webpack_require__(46)
 /* template */
@@ -44963,7 +44964,7 @@ var content = __webpack_require__(44);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(11)("1ebfc4f0", content, false, {});
+var update = __webpack_require__(4)("1ebfc4f0", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -44982,7 +44983,7 @@ if(false) {
 /* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(10)(false);
+exports = module.exports = __webpack_require__(3)(false);
 // imports
 
 
@@ -45371,7 +45372,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(49)
 }
-var normalizeComponent = __webpack_require__(12)
+var normalizeComponent = __webpack_require__(5)
 /* script */
 var __vue_script__ = __webpack_require__(51)
 /* template */
@@ -45424,7 +45425,7 @@ var content = __webpack_require__(50);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(11)("353c3cfb", content, false, {});
+var update = __webpack_require__(4)("353c3cfb", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -45443,12 +45444,12 @@ if(false) {
 /* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(10)(false);
+exports = module.exports = __webpack_require__(3)(false);
 // imports
 
 
 // module
-exports.push([module.i, "\n.well-sm {\n\ttext-align: center;\n}\nh4 {\n\ttext-align: left !important;\n\tfont-size: 10px !important;\n}\n.panel-default{\n\tpadding-top: 0px !important;\n}\n.input {\n\tpadding-left: 5px;\n\twidth: 100%;\n\theight: 30px;\n\tborder-radius: 5px;\n}\n.btn {\n\tmargin-top: 10px;\n}\n.panel {\n\theight: 50px;\n}\n\n\n\n", ""]);
+exports.push([module.i, "\n.well-sm {\n\t\ttext-align: center;\n\t\tbackground-color: #ecf0f1;\n\t\t/*background-image: url(\"/assets/images/bg2.png\");*/\n}\n.progress-bar-danger{\n\t\tbackground-color: #636e72;\n}\nh4 {\n\t\ttext-align: left !important;\n\t\tfont-size: 10px !important;\n}\n.panel-default{\n\t\tpadding-top: 0px !important;\n}\n.input {\n\t\tpadding-left: 5px;\n\t\twidth: 100%;\n\t\theight: 30px;\n\t\tborder-radius: 5px;\n}\n.btn {\n\t\tmargin-top: 10px;\n}\n.btn-u {\n\t\tmargin-top: 7% !important;\n\t\tfont-size: 12px;\n\t\tfloat: left;\n\t\twidth: 49%;\n}\n.btn-d {\n\t\tmargin-top: 7% !important;\n\t\tfont-size: 12px;\n\t\tfloat: right;\n\t\twidth: 49%;\n\t\tbackground-color: #eb4d4b;\n}\n.panel {\n\t\theight: 50px;\n}\n.flip-card {\n\t  background-color: transparent;\n\t  width: 100%;\n\t  height: 200px;\n\t  -webkit-perspective: 1000px;\n\t          perspective: 1000px; /* Remove this if you don't want the 3D effect */\n}\n\n\t/* This container is needed to position the front and back side */\n.flip-card-inner {\n\t  position: relative;\n\t  width: 100%;\n\t  height: 390px;\n\t  text-align: center;\n\t  -webkit-transition: -webkit-transform 0.8s;\n\t  transition: -webkit-transform 0.8s;\n\t  transition: transform 0.8s;\n\t  transition: transform 0.8s, -webkit-transform 0.8s;\n\t  -webkit-transform-style: preserve-3d;\n\t          transform-style: preserve-3d;\n}\n\n\t/* Do an horizontal flip when you move the mouse over the flip box container */\n.flip-card:hover .flip-card-inner {\n\t  -webkit-transform: rotateY(180deg);\n\t          transform: rotateY(180deg);\n}\n\n\t/* Position the front and back side */\n.flip-card-front, .flip-card-back {\n\t  position: absolute;\n\t  width: 100%;\n\t  height: 100%;\n\t  -webkit-backface-visibility: hidden;\n\t          backface-visibility: hidden;\n}\n\n\t/* Style the front side (fallback if image is missing) */\n.flip-card-front {\n\t  background-color: #bbb;\n\t  color: black;\n}\n\n\t/* Style the back side */\n.flip-card-back {\n\t  background-color: #74b9ff;\n\t  color: white;\n\t  -webkit-transform: rotateY(180deg);\n\t          transform: rotateY(180deg);\n\t  /*background-image: url(\"/assets/images/bg2.png\");*/\n\t  /*background-size: 100% 390px;*/\n\t  /*background-repeat: no-repeat;*/\n}\n\n\n/*\t@media screen and (max-width: 600px) {\n\t  .flip-card-front {\n\t    width: 100%;\n\t  }\n\t}*/\n\n\n", ""]);
 
 // exports
 
@@ -45459,6 +45460,135 @@ exports.push([module.i, "\n.well-sm {\n\ttext-align: center;\n}\nh4 {\n\ttext-al
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -45574,8 +45704,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				course: '',
 				college: ''
 			},
+			user_id: '',
 			disabled: true,
 			percentage: 0,
+			setProfile: false,
+			edtProfile: false,
 			handler: {
 				pp: true,
 				fn: true,
@@ -45590,8 +45723,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}
 		};
 	},
-	created: function created() {},
+	created: function created() {
+		this.getUser();
+	},
 	methods: {
+		getUser: function getUser() {
+			var _this = this;
+
+			axios({
+				method: 'GET',
+				url: '/api/profile'
+			}).then(function (response) {
+				if (response.data.length > 0) {
+					_this.edtProfile = true;
+					_this.user_id = response.data[0].profile_id;
+					_this.user.image = '/assets/images/profile_picture/' + response.data[0].image;
+					_this.user.f_name = response.data[0].fullname;
+					_this.user.email = response.data[0].email;
+					_this.user.contact = response.data[0].contact;
+					_this.user.age = response.data[0].age;
+					_this.user.gender = response.data[0].gender;
+					_this.user.date = response.data[0].birthdate;
+					_this.user.address = response.data[0].address;
+					_this.user.course = response.data[0].course;
+					_this.user.college = response.data[0].college;
+
+					_this.percentage = 100;
+					_this.disabled = false;
+				} else {
+					_this.setProfile = true;
+				}
+			}).catch(function (error) {});
+		},
+
 		setUp: function setUp() {
 			axios({
 				method: 'POST',
@@ -45628,6 +45792,67 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}).catch(function (error) {});
 		},
 
+		editProfile: function editProfile() {
+			this.getUser();
+			axios({
+				method: 'PATCH',
+				url: '/api/profile/' + this.user_id,
+				data: this.user
+			}).then(function (response) {
+				if (response.data.code > 0) {
+					swal({
+						title: 'Good Job!',
+						type: 'success',
+						html: '<b>' + response.data.msg + '</b>',
+						showCloseButton: true,
+						showCancelButton: false,
+						focusConfirm: false,
+						confirmButtonText: 'OKAY',
+						cancelButtonText: 'Cancel'
+					}).then(function (result) {
+						location.reload();
+					}, function (dismiss) {
+						location.reload();
+					});
+				} else {
+					swal({
+						title: 'Error!',
+						type: 'warning',
+						html: '<b>' + response.data.msg + '</b>',
+						showCloseButton: true,
+						showCancelButton: false,
+						focusConfirm: false,
+						confirmButtonText: 'OKAY',
+						cancelButtonText: 'Cancel'
+					}).then(function (result) {}, function (dismiss) {});
+				}
+			}).catch(function (error) {});
+		},
+
+		deleteProfile: function deleteProfile() {
+			var _this2 = this;
+
+			swal({
+				title: 'Warning!',
+				type: 'warning',
+				html: '<b>Are you sure you want to remove your profile ?</b>',
+				showCloseButton: true,
+				showCancelButton: true,
+				focusConfirm: false,
+				confirmButtonText: 'OKAY',
+				cancelButtonText: 'Cancel'
+			}).then(function (result) {
+				axios({
+					method: 'DELETE',
+					url: 'api/profile/' + _this2.user_id
+				}).then(function (response) {
+					if (response.data.code > 0) {
+						location.reload();
+					}
+				}).catch(function (error) {});
+			}, function (dismiss) {});
+		},
+
 		fn: function fn() {
 			this.action(0, this.user.f_name, this.handler.fn);
 
@@ -45641,7 +45866,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		em: function em() {
 			this.action(1, this.user.email, this.handler.em);
 
-			if (this.percentage === 100) {
+			if (this.percentage >= 100) {
+				this.percentage = 100;
 				this.disabled = false;
 			} else {
 				this.disabled = true;
@@ -45651,7 +45877,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		cn: function cn() {
 			this.action(2, this.user.contact, this.handler.cn);
 
-			if (this.percentage === 100) {
+			if (this.percentage >= 100) {
+				this.percentage = 100;
 				this.disabled = false;
 			} else {
 				this.disabled = true;
@@ -45661,7 +45888,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		ag: function ag() {
 			this.action(3, this.user.age, this.handler.ag);
 
-			if (this.percentage === 100) {
+			if (this.percentage >= 100) {
+				this.percentage = 100;
 				this.disabled = false;
 			} else {
 				this.disabled = true;
@@ -45671,7 +45899,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		ge: function ge() {
 			this.action(4, this.user.gender, this.handler.ge);
 
-			if (this.percentage === 100) {
+			if (this.percentage >= 100) {
+				this.percentage = 100;
 				this.disabled = false;
 			} else {
 				this.disabled = true;
@@ -45681,7 +45910,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		bd: function bd() {
 			this.action(5, this.user.date, this.handler.bd);
 
-			if (this.percentage === 100) {
+			if (this.percentage >= 100) {
+				this.percentage = 100;
 				this.disabled = false;
 			} else {
 				this.disabled = true;
@@ -45691,7 +45921,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		ad: function ad() {
 			this.action(6, this.user.address, this.handler.ad);
 
-			if (this.percentage === 100) {
+			if (this.percentage >= 100) {
+				this.percentage = 100;
 				this.disabled = false;
 			} else {
 				this.disabled = true;
@@ -45701,7 +45932,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		cc: function cc() {
 			this.action(7, this.user.course, this.handler.cc);
 
-			if (this.percentage === 100) {
+			if (this.percentage >= 100) {
+				this.percentage = 100;
 				this.disabled = false;
 			} else {
 				this.disabled = true;
@@ -45711,7 +45943,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		un: function un() {
 			this.action(8, this.user.college, this.handler.un);
 
-			if (this.percentage === 100) {
+			if (this.percentage >= 100) {
+				this.percentage = 100;
 				this.disabled = false;
 			} else {
 				this.disabled = true;
@@ -45719,7 +45952,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		},
 
 		pp: function pp(e) {
-			var _this = this;
+			var _this3 = this;
 
 			var files = e.target.files || e.dataTransfer.files;
 			if (!files.length) return;
@@ -45731,14 +45964,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			reader.readAsDataURL(files[0]);
 
 			reader.onload = function (e) {
-				_this.user.image = e.target.result;
+				_this3.user.image = e.target.result;
 			};
 
 			this.user.image = files[0];
 
 			this.action(9, this.user.image, this.handler.pp);
 
-			if (this.percentage === 100) {
+			if (this.percentage >= 100) {
+				this.percentage = 100;
 				this.disabled = false;
 			} else {
 				this.disabled = true;
@@ -45817,388 +46051,948 @@ var render = function() {
   return _c("div", { staticClass: "well well-sm" }, [
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-lg-12" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-sm-4" }, [
-            _c("h4", [_vm._v("Profile Picture:")]),
-            _vm._v(" "),
-            _c("img", {
-              attrs: { src: _vm.user.image, width: "100%", height: "140px" }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "panel panel-default" }, [
-              _c("div", { staticClass: "panel-body" }, [
-                _c("input", {
-                  ref: "file",
-                  attrs: {
-                    type: "file",
-                    accept: "image/*",
-                    id: "file",
-                    name: "img_id"
+        _vm.setProfile
+          ? _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-sm-4" }, [
+                _c("h4", [_vm._v("Profile Picture:")]),
+                _vm._v(" "),
+                _c("img", {
+                  attrs: { src: _vm.user.image, width: "100%", height: "140px" }
+                }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "panel panel-default",
+                    staticStyle: { "border-radius": "0px !important" }
                   },
-                  on: { change: _vm.pp }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("h4", [_vm._v("Fullname:")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.user.f_name,
-                    expression: "user.f_name"
-                  }
-                ],
-                staticClass: "input",
-                attrs: { type: "text", placeholder: "Enter Fullame" },
-                domProps: { value: _vm.user.f_name },
-                on: {
-                  change: _vm.fn,
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.user, "f_name", $event.target.value)
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("h4", [_vm._v("Email:")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.user.email,
-                    expression: "user.email"
-                  }
-                ],
-                staticClass: "input",
-                attrs: { type: "email", placeholder: "Enter Email" },
-                domProps: { value: _vm.user.email },
-                on: {
-                  change: _vm.em,
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.user, "email", $event.target.value)
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("h4", [_vm._v("Contact Number:")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.user.contact,
-                    expression: "user.contact"
-                  }
-                ],
-                staticClass: "input",
-                attrs: { type: "number", placeholder: " Enter Mobile Number" },
-                domProps: { value: _vm.user.contact },
-                on: {
-                  change: _vm.cn,
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.user, "contact", $event.target.value)
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("h4", [_vm._v("Age:")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.user.age,
-                    expression: "user.age"
-                  }
-                ],
-                staticClass: "input",
-                attrs: { type: "number", placeholder: " Enter Age" },
-                domProps: { value: _vm.user.age },
-                on: {
-                  change: _vm.ag,
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.user, "age", $event.target.value)
-                  }
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-sm-4" }, [
-            _c("h4", [_vm._v("Gender:")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "panel panel-default" }, [
-              _c("div", { staticClass: "panel-body" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.user.gender,
-                      expression: "user.gender"
-                    }
-                  ],
-                  attrs: { type: "radio", value: "Male" },
-                  domProps: { checked: _vm._q(_vm.user.gender, "Male") },
-                  on: {
-                    change: [
-                      function($event) {
-                        return _vm.$set(_vm.user, "gender", "Male")
-                      },
-                      _vm.ge
-                    ]
-                  }
-                }),
-                _vm._v(" Male\r\n\t  \t\t\t\t\t"),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.user.gender,
-                      expression: "user.gender"
-                    }
-                  ],
-                  attrs: { type: "radio", value: "Female" },
-                  domProps: { checked: _vm._q(_vm.user.gender, "Female") },
-                  on: {
-                    change: [
-                      function($event) {
-                        return _vm.$set(_vm.user, "gender", "Female")
-                      },
-                      _vm.ge
-                    ]
-                  }
-                }),
-                _vm._v(" Female\r\n\t  \t\t\t\t")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("h4", [_vm._v("Birthdate:")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.user.date,
-                    expression: "user.date"
-                  }
-                ],
-                staticClass: "input",
-                attrs: { type: "date" },
-                domProps: { value: _vm.user.date },
-                on: {
-                  change: _vm.bd,
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.user, "date", $event.target.value)
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("h4", [_vm._v("Address:")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.user.address,
-                    expression: "user.address"
-                  }
-                ],
-                staticClass: "input",
-                attrs: { type: "text", placeholder: "Enter Address" },
-                domProps: { value: _vm.user.address },
-                on: {
-                  change: _vm.ad,
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.user, "address", $event.target.value)
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("h4", { staticStyle: { "margin-top": "20px" } }, [
-              _vm._v("College Course:")
-            ]),
-            _vm._v(" "),
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.user.course,
-                    expression: "user.course"
-                  }
-                ],
-                staticClass: "input",
-                on: {
-                  change: [
-                    function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.$set(
-                        _vm.user,
-                        "course",
-                        $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      )
-                    },
-                    _vm.cc
+                  [
+                    _c("div", { staticClass: "panel-body" }, [
+                      _c("input", {
+                        ref: "file",
+                        attrs: {
+                          type: "file",
+                          accept: "image/*",
+                          id: "file",
+                          name: "img_id"
+                        },
+                        on: { change: _vm.pp }
+                      })
+                    ])
                   ]
-                }
-              },
-              [
-                _c("option", [_vm._v("BSIT")]),
+                ),
                 _vm._v(" "),
-                _c("option", [_vm._v("BSHRM")]),
+                _c("h4", [_vm._v("Fullname:")]),
                 _vm._v(" "),
-                _c("option", [_vm._v("BSC")]),
-                _vm._v(" "),
-                _c("option", [_vm._v("BSED")]),
-                _vm._v(" "),
-                _c("option", [_vm._v("BSCS")]),
-                _vm._v(" "),
-                _c("option", [_vm._v("BSTM")]),
-                _vm._v(" "),
-                _c("option", [_vm._v("BSBA")])
-              ]
-            ),
-            _vm._v(" "),
-            _c("h4", { staticStyle: { "margin-top": "15px" } }, [
-              _vm._v("College Name:")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.user.college,
-                    expression: "user.college"
-                  }
-                ],
-                staticClass: "input",
-                attrs: { type: "text", placeholder: "Enter College Name" },
-                domProps: { value: _vm.user.college },
-                on: {
-                  change: _vm.un,
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.f_name,
+                        expression: "user.f_name"
+                      }
+                    ],
+                    staticClass: "input",
+                    attrs: { type: "text", placeholder: "Enter Fullame" },
+                    domProps: { value: _vm.user.f_name },
+                    on: {
+                      change: _vm.fn,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.user, "f_name", $event.target.value)
+                      }
                     }
-                    _vm.$set(_vm.user, "college", $event.target.value)
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("h4", [_vm._v("Status:")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "progress" }, [
-              _c(
-                "div",
-                {
-                  staticClass: "progress-bar progress-bar-striped active",
-                  style: { width: _vm.percentage + "%" },
-                  attrs: {
-                    role: "progressbar",
-                    "aria-valuemin": "0",
-                    "aria-valuemax": "100"
-                  }
-                },
-                [
-                  _vm._v(
-                    "\r\n\t\t\t\t      " +
-                      _vm._s(_vm.percentage) +
-                      "% Complete\r\n\t\t\t\t    "
+                  })
+                ]),
+                _vm._v(" "),
+                _c("h4", [_vm._v("Email:")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.email,
+                        expression: "user.email"
+                      }
+                    ],
+                    staticClass: "input",
+                    attrs: { type: "email", placeholder: "Enter Email" },
+                    domProps: { value: _vm.user.email },
+                    on: {
+                      change: _vm.em,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.user, "email", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("h4", [_vm._v("Contact Number:")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.contact,
+                        expression: "user.contact"
+                      }
+                    ],
+                    staticClass: "input",
+                    attrs: {
+                      type: "number",
+                      placeholder: " Enter Mobile Number"
+                    },
+                    domProps: { value: _vm.user.contact },
+                    on: {
+                      change: _vm.cn,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.user, "contact", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("h4", [_vm._v("Age:")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.age,
+                        expression: "user.age"
+                      }
+                    ],
+                    staticClass: "input",
+                    attrs: { type: "number", placeholder: " Enter Age" },
+                    domProps: { value: _vm.user.age },
+                    on: {
+                      change: _vm.ag,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.user, "age", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-4" }, [
+                _c("h4", [_vm._v("Gender:")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "panel panel-default" }, [
+                  _c("div", { staticClass: "panel-body" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.user.gender,
+                          expression: "user.gender"
+                        }
+                      ],
+                      attrs: { type: "radio", value: "Male" },
+                      domProps: { checked: _vm._q(_vm.user.gender, "Male") },
+                      on: {
+                        change: [
+                          function($event) {
+                            return _vm.$set(_vm.user, "gender", "Male")
+                          },
+                          _vm.ge
+                        ]
+                      }
+                    }),
+                    _vm._v(" Male\r\n\t  \t\t\t\t\t"),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.user.gender,
+                          expression: "user.gender"
+                        }
+                      ],
+                      attrs: { type: "radio", value: "Female" },
+                      domProps: { checked: _vm._q(_vm.user.gender, "Female") },
+                      on: {
+                        change: [
+                          function($event) {
+                            return _vm.$set(_vm.user, "gender", "Female")
+                          },
+                          _vm.ge
+                        ]
+                      }
+                    }),
+                    _vm._v(" Female\r\n\t  \t\t\t\t")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("h4", [_vm._v("Birthdate:")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.date,
+                        expression: "user.date"
+                      }
+                    ],
+                    staticClass: "input",
+                    attrs: { type: "date" },
+                    domProps: { value: _vm.user.date },
+                    on: {
+                      change: _vm.bd,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.user, "date", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("h4", [_vm._v("Address:")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.address,
+                        expression: "user.address"
+                      }
+                    ],
+                    staticClass: "input",
+                    attrs: { type: "text", placeholder: "Enter Address" },
+                    domProps: { value: _vm.user.address },
+                    on: {
+                      change: _vm.ad,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.user, "address", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("h4", { staticStyle: { "margin-top": "20px" } }, [
+                  _vm._v("College Course:")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.course,
+                        expression: "user.course"
+                      }
+                    ],
+                    staticClass: "input",
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.user,
+                            "course",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        },
+                        _vm.cc
+                      ]
+                    }
+                  },
+                  [
+                    _c("option", [_vm._v("BSIT")]),
+                    _vm._v(" "),
+                    _c("option", [_vm._v("BSHRM")]),
+                    _vm._v(" "),
+                    _c("option", [_vm._v("BSC")]),
+                    _vm._v(" "),
+                    _c("option", [_vm._v("BSED")]),
+                    _vm._v(" "),
+                    _c("option", [_vm._v("BSCS")]),
+                    _vm._v(" "),
+                    _c("option", [_vm._v("BSTM")]),
+                    _vm._v(" "),
+                    _c("option", [_vm._v("BSBA")])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("h4", { staticStyle: { "margin-top": "15px" } }, [
+                  _vm._v("College Name:")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.college,
+                        expression: "user.college"
+                      }
+                    ],
+                    staticClass: "input",
+                    attrs: { type: "text", placeholder: "Enter College Name" },
+                    domProps: { value: _vm.user.college },
+                    on: {
+                      change: _vm.un,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.user, "college", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("h4", [_vm._v("Status:")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "progress" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "progress-bar progress-bar-danger progress-bar-striped active",
+                      style: { width: _vm.percentage + "%" },
+                      attrs: {
+                        role: "progressbar",
+                        "aria-valuemin": "0",
+                        "aria-valuemax": "100"
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\r\n\t\t\t\t      " +
+                          _vm._s(_vm.percentage) +
+                          "% Complete\r\n\t\t\t\t    "
+                      )
+                    ]
                   )
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "form-group",
-                staticStyle: { "margin-top": "11%" }
-              },
-              [
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "form-group",
+                    staticStyle: { "margin-top": "11%" }
+                  },
+                  [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "input btn btn-primary",
+                        attrs: { value: "SET UP", disabled: _vm.disabled },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.setUp($event)
+                          }
+                        }
+                      },
+                      [
+                        _c("span", { staticClass: "fas fa-users-cog fa-lg" }),
+                        _vm._v(" SET UP PROFILE\r\n\t\t\t\t\t  ")
+                      ]
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-4" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("div", { staticClass: "flip-card" }, [
+                  _c("div", { staticClass: "flip-card-inner" }, [
+                    _c("div", { staticClass: "flip-card-front" }, [
+                      _c("img", {
+                        staticStyle: { width: "100%", height: "390px" },
+                        attrs: { src: _vm.user.image }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "flip-card-back" }, [
+                      _c(
+                        "h3",
+                        {
+                          staticStyle: {
+                            "font-size": "20px",
+                            "font-weight": "bold"
+                          }
+                        },
+                        [_vm._v(_vm._s(_vm.user.f_name))]
+                      ),
+                      _vm._v(" "),
+                      _c("p", { staticStyle: { "font-weight": "bold" } }, [
+                        _vm._v(_vm._s(_vm.user.email))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticStyle: { "font-weight": "bold" } }, [
+                        _vm._v(_vm._s(_vm.user.contact))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticStyle: { "font-weight": "bold" } }, [
+                        _vm._v(_vm._s(_vm.user.age))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticStyle: { "font-weight": "bold" } }, [
+                        _vm._v(_vm._s(_vm.user.gender))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticStyle: { "font-weight": "bold" } }, [
+                        _vm._v(_vm._s(_vm.user.date))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticStyle: { "font-weight": "bold" } }, [
+                        _vm._v(_vm._s(_vm.user.address))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticStyle: { "font-weight": "bold" } }, [
+                        _vm._v(_vm._s(_vm.user.course))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticStyle: { "font-weight": "bold" } }, [
+                        _vm._v(_vm._s(_vm.user.college))
+                      ])
+                    ])
+                  ])
+                ])
+              ])
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.edtProfile
+          ? _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-sm-4" }, [
+                _c("h4", [_vm._v("Profile Picture:")]),
+                _vm._v(" "),
+                _c("img", {
+                  attrs: { src: _vm.user.image, width: "100%", height: "140px" }
+                }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "panel panel-default",
+                    staticStyle: { "border-radius": "0px !important" }
+                  },
+                  [
+                    _c("div", { staticClass: "panel-body" }, [
+                      _c("input", {
+                        ref: "file",
+                        attrs: {
+                          type: "file",
+                          accept: "image/*",
+                          id: "file",
+                          name: "img_id"
+                        },
+                        on: { change: _vm.pp }
+                      })
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("h4", [_vm._v("Fullname:")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.f_name,
+                        expression: "user.f_name"
+                      }
+                    ],
+                    staticClass: "input",
+                    attrs: { type: "text", placeholder: "Enter Fullame" },
+                    domProps: { value: _vm.user.f_name },
+                    on: {
+                      change: _vm.fn,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.user, "f_name", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("h4", [_vm._v("Email:")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.email,
+                        expression: "user.email"
+                      }
+                    ],
+                    staticClass: "input",
+                    attrs: { type: "email", placeholder: "Enter Email" },
+                    domProps: { value: _vm.user.email },
+                    on: {
+                      change: _vm.em,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.user, "email", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("h4", [_vm._v("Contact Number:")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.contact,
+                        expression: "user.contact"
+                      }
+                    ],
+                    staticClass: "input",
+                    attrs: {
+                      type: "number",
+                      placeholder: " Enter Mobile Number"
+                    },
+                    domProps: { value: _vm.user.contact },
+                    on: {
+                      change: _vm.cn,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.user, "contact", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("h4", [_vm._v("Age:")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.age,
+                        expression: "user.age"
+                      }
+                    ],
+                    staticClass: "input",
+                    attrs: { type: "number", placeholder: " Enter Age" },
+                    domProps: { value: _vm.user.age },
+                    on: {
+                      change: _vm.ag,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.user, "age", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-4" }, [
+                _c("h4", [_vm._v("Gender:")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "panel panel-default" }, [
+                  _c("div", { staticClass: "panel-body" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.user.gender,
+                          expression: "user.gender"
+                        }
+                      ],
+                      attrs: { type: "radio", value: "Male" },
+                      domProps: { checked: _vm._q(_vm.user.gender, "Male") },
+                      on: {
+                        change: [
+                          function($event) {
+                            return _vm.$set(_vm.user, "gender", "Male")
+                          },
+                          _vm.ge
+                        ]
+                      }
+                    }),
+                    _vm._v(" Male\r\n\t  \t\t\t\t\t"),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.user.gender,
+                          expression: "user.gender"
+                        }
+                      ],
+                      attrs: { type: "radio", value: "Female" },
+                      domProps: { checked: _vm._q(_vm.user.gender, "Female") },
+                      on: {
+                        change: [
+                          function($event) {
+                            return _vm.$set(_vm.user, "gender", "Female")
+                          },
+                          _vm.ge
+                        ]
+                      }
+                    }),
+                    _vm._v(" Female\r\n\t  \t\t\t\t")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("h4", [_vm._v("Birthdate:")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.date,
+                        expression: "user.date"
+                      }
+                    ],
+                    staticClass: "input",
+                    attrs: { type: "date" },
+                    domProps: { value: _vm.user.date },
+                    on: {
+                      change: _vm.bd,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.user, "date", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("h4", [_vm._v("Address:")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.address,
+                        expression: "user.address"
+                      }
+                    ],
+                    staticClass: "input",
+                    attrs: { type: "text", placeholder: "Enter Address" },
+                    domProps: { value: _vm.user.address },
+                    on: {
+                      change: _vm.ad,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.user, "address", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("h4", { staticStyle: { "margin-top": "20px" } }, [
+                  _vm._v("College Course:")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.course,
+                        expression: "user.course"
+                      }
+                    ],
+                    staticClass: "input",
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.user,
+                            "course",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        },
+                        _vm.cc
+                      ]
+                    }
+                  },
+                  [
+                    _c("option", [_vm._v("BSIT")]),
+                    _vm._v(" "),
+                    _c("option", [_vm._v("BSHRM")]),
+                    _vm._v(" "),
+                    _c("option", [_vm._v("BSC")]),
+                    _vm._v(" "),
+                    _c("option", [_vm._v("BSED")]),
+                    _vm._v(" "),
+                    _c("option", [_vm._v("BSCS")]),
+                    _vm._v(" "),
+                    _c("option", [_vm._v("BSTM")]),
+                    _vm._v(" "),
+                    _c("option", [_vm._v("BSBA")])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("h4", { staticStyle: { "margin-top": "15px" } }, [
+                  _vm._v("College Name:")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.college,
+                        expression: "user.college"
+                      }
+                    ],
+                    staticClass: "input",
+                    attrs: { type: "text", placeholder: "Enter College Name" },
+                    domProps: { value: _vm.user.college },
+                    on: {
+                      change: _vm.un,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.user, "college", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("h4", [_vm._v("Status:")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "progress" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "progress-bar progress-bar-danger progress-bar-striped active",
+                      style: { width: _vm.percentage + "%" },
+                      attrs: {
+                        role: "progressbar",
+                        "aria-valuemin": "0",
+                        "aria-valuemax": "100"
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\r\n\t\t\t\t      " +
+                          _vm._s(_vm.percentage) +
+                          "% Complete\r\n\t\t\t\t    "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
                 _c(
                   "button",
                   {
-                    staticClass: "input btn btn-success",
-                    attrs: { value: "SET UP", disabled: _vm.disabled },
+                    staticClass: "btn btn-primary btn-u",
+                    attrs: { disabled: _vm.disabled },
                     on: {
                       click: function($event) {
                         $event.preventDefault()
-                        return _vm.setUp($event)
+                        return _vm.editProfile($event)
                       }
                     }
                   },
                   [
-                    _c("span", { staticClass: "fas fa-users-cog fa-lg" }),
-                    _vm._v(" SET UP PROFILE\r\n\t\t\t\t\t  ")
+                    _c("span", { staticClass: "fas fa-user-edit fa-md" }),
+                    _vm._v(" EDIT \r\n\t\t\t\t  ")
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger btn-d",
+                    attrs: { disabled: _vm.disabled },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.deleteProfile($event)
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { staticClass: "fas fa-user-times fa-md" }),
+                    _vm._v(" DELETE \r\n\t\t\t\t  ")
                   ]
                 )
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-sm-4" }, [
-            _vm._v("\r\n\t\t\t\t\tHUHUHU\r\n\t\t\t\t")
-          ])
-        ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-4" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("div", { staticClass: "flip-card" }, [
+                  _c("div", { staticClass: "flip-card-inner" }, [
+                    _c("div", { staticClass: "flip-card-front" }, [
+                      _c("img", {
+                        staticStyle: { width: "100%", height: "390px" },
+                        attrs: { src: _vm.user.image }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "flip-card-back" }, [
+                      _c(
+                        "h3",
+                        {
+                          staticStyle: {
+                            "font-size": "20px",
+                            "font-weight": "bold"
+                          }
+                        },
+                        [_vm._v(_vm._s(_vm.user.f_name))]
+                      ),
+                      _vm._v(" "),
+                      _c("p", { staticStyle: { "font-weight": "bold" } }, [
+                        _vm._v(_vm._s(_vm.user.email))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticStyle: { "font-weight": "bold" } }, [
+                        _vm._v(_vm._s(_vm.user.contact))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticStyle: { "font-weight": "bold" } }, [
+                        _vm._v(_vm._s(_vm.user.age))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticStyle: { "font-weight": "bold" } }, [
+                        _vm._v(_vm._s(_vm.user.gender))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticStyle: { "font-weight": "bold" } }, [
+                        _vm._v(_vm._s(_vm.user.date))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticStyle: { "font-weight": "bold" } }, [
+                        _vm._v(_vm._s(_vm.user.address))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticStyle: { "font-weight": "bold" } }, [
+                        _vm._v(_vm._s(_vm.user.course))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticStyle: { "font-weight": "bold" } }, [
+                        _vm._v(_vm._s(_vm.user.college))
+                      ])
+                    ])
+                  ])
+                ])
+              ])
+            ])
+          : _vm._e()
       ])
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "panel panel-default",
+        staticStyle: { "margin-top": "10%" }
+      },
+      [
+        _c("div", { staticClass: "panel-body" }, [
+          _c("b", [_vm._v("YOUR PROFILE")])
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "panel panel-default",
+        staticStyle: { "margin-top": "10%" }
+      },
+      [
+        _c("div", { staticClass: "panel-body" }, [
+          _c("b", [_vm._v("YOUR PROFILE")])
+        ])
+      ]
+    )
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -46210,6 +47004,223 @@ if (false) {
 
 /***/ }),
 /* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(54)
+}
+var normalizeComponent = __webpack_require__(5)
+/* script */
+var __vue_script__ = __webpack_require__(56)
+/* template */
+var __vue_template__ = __webpack_require__(57)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Newsfeed.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-138567a8", Component.options)
+  } else {
+    hotAPI.reload("data-v-138567a8", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(55);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("39ad7c26", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-138567a8\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Newsfeed.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-138567a8\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Newsfeed.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.post {\n\twidth: 60%;\n}\n.well-sm {\n}\n.btn-success {\n\tbackground-color: #16a085;\n\tpadding-top: 9px;\n\tpadding-bottom: 11px;\n}\n.btn-primary {\n\tbackground-color: #2980b9;\n\tpadding-top: 9px;\n\tpadding-bottom: 11px;\n}\n.column {\n  float: left;\n  width: 100%;\n  padding: 0 5px;\n}\n.row {margin: 0 -5px;\n}\n.row:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n@media screen and (max-width: 600px) {\n.column {\n    width: 100%;\n    display: block;\n    margin-bottom: 10px;\n}\n}\n.card {\n  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n  padding: 16px;\n  text-align: center;\n  background-color: #444;\n  color: white;\n}\n.fa-user {font-size:50px;\n}\ntextarea {\n\twidth: 100%;\n\theight: 100px;\n}\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 56 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	data: function data() {
+		return {};
+	},
+
+	created: function created() {},
+	methods: {},
+	filters: {}
+});
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "col-sm-6" }, [
+          _c("div", { staticClass: "well well-sm" }, [
+            _vm._v("\n\t\t\t\t "),
+            _c("b", [_vm._v("Create Post")]),
+            _vm._v(" "),
+            _c("textarea", {
+              staticStyle: { overflow: "hidden" },
+              attrs: { placeholder: "Whats on your mind ?" }
+            }),
+            _c("br"),
+            _vm._v(" "),
+            _c("span", { staticClass: "btn btn-primary fa fa-pencil-alt" }, [
+              _vm._v("  Post ")
+            ]),
+            _vm._v(" "),
+            _c("span", {
+              staticClass: "btn btn-success fa fa-grin-hearts fa-lg"
+            }),
+            _vm._v(" "),
+            _c("span", {
+              staticClass: "btn btn-success fa fa-user-plus fa-lg"
+            }),
+            _vm._v(" "),
+            _c("span", {
+              staticClass: "btn btn-success fa fa-street-view fa-lg"
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-2" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "column" }, [
+              _c("div", { staticClass: "card" }, [
+                _c("p", [_c("i", { staticClass: "fa fa-user" })]),
+                _vm._v(" "),
+                _c("h3", [_vm._v("5,000")]),
+                _vm._v(" "),
+                _c("p", [_vm._v("Friends")])
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-138567a8", module.exports)
+  }
+}
+
+/***/ }),
+/* 58 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

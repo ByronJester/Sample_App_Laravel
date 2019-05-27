@@ -8,6 +8,11 @@ use App\Models\AccountsManagementModel;
 
 
 class UsersRepository implements RepositoryInterface {
+	protected $model;
+
+  public function __construct(AccountsManagementModel $model){
+    $this->model = $model;
+  }
 
 	public function createAccount($request){
 		$un = $request->input('un');
@@ -22,7 +27,7 @@ class UsersRepository implements RepositoryInterface {
 			$msg 	= "All fields are required!";
 		}else{
 			if($cp == $pw){
-				$users = AccountsManagementModel::registerAccount($un, $pw, $em);
+				$users = $this->model->registerAccount($un, $pw, $em);
 
 				if($users > 0){
 					$code = 1;
@@ -51,7 +56,7 @@ class UsersRepository implements RepositoryInterface {
 		if($un == "" || $pw == ""){
 			$msg = "There's an empty field!";
 		}else{
-			$user = AccountsManagementModel::loginAccount($un, $pw);
+			$user = $this->model->loginAccount($un, $pw);
 
 			if(count($user) > 0){
 				$code = 1;

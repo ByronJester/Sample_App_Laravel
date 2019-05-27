@@ -22,6 +22,6 @@ Route::post('/register', 'AxiosCall\AccountsManagement@registerAccount');
 Route::post('/login', 'AxiosCall\AccountsManagement@loginAccount');
 
 #Profile Management
-Route::post('/profile', 'AxiosCall\ProfileManagement@setupProfile');
+Route::resource('/profile', 'AxiosCall\ProfileManagement');
 
- 
+#Homepage Management

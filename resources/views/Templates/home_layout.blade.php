@@ -26,7 +26,7 @@
 
 	#mySidenav a {
 	  position: absolute;
-	  left: -150px;
+	  left: -170px;
 	  transition: 0.3s;
 	  padding-top: 15px;
 	  padding-bottom: 15px;
@@ -39,7 +39,7 @@
 	}
 	 
 	#mySidenav a:hover {
-	  left: -20px;
+	  left: -25px;
 	}
 
 	#home {
