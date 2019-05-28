@@ -13,15 +13,9 @@ class AccountsManagement extends Controller{
     $this->repo = $todo;
 
   }
- 
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @return \Illuminate\Http\Response
-   */
+
   public function registerAccount(Request $request){
-    return $this->repo->createAccount($request);
+    return $this->repo->createAccount($request); 
   }
 
   public function loginAccount(Request $request){

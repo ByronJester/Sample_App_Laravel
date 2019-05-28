@@ -47088,7 +47088,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.post {\n\twidth: 60%;\n}\n.well-sm {\n}\n.btn-success {\n\tbackground-color: #16a085;\n\tpadding-top: 9px;\n\tpadding-bottom: 11px;\n}\n.btn-primary {\n\tbackground-color: #2980b9;\n\tpadding-top: 9px;\n\tpadding-bottom: 11px;\n}\n.column {\n  float: left;\n  width: 100%;\n  padding: 0 5px;\n}\n.row {margin: 0 -5px;\n}\n.row:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n@media screen and (max-width: 600px) {\n.column {\n    width: 100%;\n    display: block;\n    margin-bottom: 10px;\n}\n}\n.card {\n  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n  padding: 16px;\n  text-align: center;\n  background-color: #444;\n  color: white;\n}\n.fa-user {font-size:50px;\n}\ntextarea {\n\twidth: 100%;\n\theight: 100px;\n}\n\n", ""]);
+exports.push([module.i, "\n.post {\n\twidth: 60%;\n}\n.name {\n\tfont-family: Courier New;\n\tfont-size: 15px;\n\tcolor: black !important;\n\tfont-weight: bold;\n}\n.well-sm {\n}\n.fa-thumbs-up {\n\twidth: 49%;\n\ttext-align: center;\n\tfloat: left;\n\tcolor: #2e86de;\n}\n.fa-comments {\n\twidth: 49%;\n\ttext-align: center;\n\tfloat: right;\n\tcolor: #00b894;\n}\n.fa-edit{\n\tbackground-color: #2980b9;\n\tcolor: white;\n\tmargin-bottom: 5px;\n\tfloat: right;\n}\n.fa-trash-alt {\n\tbackground-color: #eb4d4b;\n\tcolor: white;\n\tmargin-bottom: 5px;\n\tfloat: right;\n}\n.btn-success {\n\tbackground-color: #16a085;\n\tpadding-top: 9px;\n\tpadding-bottom: 11px;\n}\n.btn-primary {\n\tbackground-color: #2980b9;\n\tpadding-top: 9px;\n\tpadding-bottom: 11px;\n}\n.column {\n  float: left;\n  width: 100%;\n  padding: 0 5px;\n}\n.row {margin: 0 -5px;\n}\n.row:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n@media screen and (max-width: 600px) {\n.column {\n    width: 100%;\n    display: block;\n    margin-bottom: 10px;\n}\n}\n.card {\n  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n  padding: 16px;\n  text-align: center;\n  background-color: #444;\n  color: white;\n}\n.fa-user {font-size:50px;\n}\ntextarea {\n\twidth: 100%;\n\theight: 100px;\n}\n.time {\n\tfont-family: Courier New;\n\ttext-align: right !important;\n\tfont-size: 12px;\n}\n\n", ""]);
 
 // exports
 
@@ -47136,15 +47136,134 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
-		return {};
+		return {
+			user: {},
+			seen: false,
+			status: '',
+			message: '',
+			isSuccess: false,
+			isError: false,
+			posts: []
+		};
 	},
 
-	created: function created() {},
-	methods: {},
-	filters: {}
+	created: function created() {
+		this.getPost();
+	},
+
+	methods: {
+
+		getPost: function getPost() {
+			var _this = this;
+
+			axios({
+				method: 'GET',
+				url: '/api/post'
+			}).then(function (response) {
+				_this.posts = response.data.sort(function (a, b) {
+					return b.created.date.localeCompare(a.created.date);
+				});
+			}).catch(function (error) {});
+		},
+
+		createPost: function createPost() {
+			var _this2 = this;
+
+			if (this.user.post.length > 190) {
+				this.isError = true;
+				this.seen = true;
+				this.status = 'Warning';
+				this.message = 'The post length is too long!';
+			} else {
+				axios({
+					method: 'POST',
+					url: '/api/post',
+					data: this.user
+				}).then(function (response) {
+					_this2.getPost();
+
+					if (response.data.error > 0) {
+						_this2.isError = true;
+						_this2.status = response.data.status;
+						_this2.message = response.data.msg.post[0];
+						_this2.seen = true;
+
+						setTimeout(function () {
+							this.seen = false;
+						}.bind(_this2), 3000);
+					} else {
+						if (response.data.code > 0) {
+							_this2.isSuccess = true;
+							_this2.status = response.data.status;
+							_this2.message = response.data.msg;
+							_this2.seen = true;
+
+							setTimeout(function () {
+								this.seen = false;
+								this.user.post = '';
+							}.bind(_this2), 3000);
+						} else {
+							_this2.isError = true;
+							_this2.status = response.data.status;
+							_this2.message = response.data.msg;
+							_this2.seen = true;
+
+							setTimeout(function () {
+								this.seen = false;
+							}.bind(_this2), 3000);
+						}
+					}
+				}).catch(function (error) {});
+			}
+		},
+
+		closeAlert: function closeAlert() {
+			this.seen = false;
+		}
+
+	},
+
+	filters: {
+		date: function date(_date) {
+			return _date.slice(0, 10);
+		}
+	}
 });
 
 /***/ }),
@@ -47155,55 +47274,169 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-md-12" }, [
+      _c("div", { staticClass: "col-sm-6" }, [
+        _c("div", { staticClass: "well well-sm" }, [
+          _vm._v("\n\t\t\t\t "),
+          _c("b", [_vm._v("Create Post")]),
+          _vm._v(" "),
+          _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.user.post,
+                expression: "user.post"
+              }
+            ],
+            staticStyle: { overflow: "hidden" },
+            attrs: { placeholder: "Whats on your mind ?" },
+            domProps: { value: _vm.user.post },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.user, "post", $event.target.value)
+              }
+            }
+          }),
+          _c("br"),
+          _vm._v(" "),
+          _c(
+            "span",
+            {
+              staticClass: "btn btn-primary fa fa-pencil-alt",
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.createPost($event)
+                }
+              }
+            },
+            [_vm._v("  Post ")]
+          ),
+          _vm._v(" "),
+          _c("span", {
+            staticClass: "btn btn-success fa fa-grin-hearts fa-lg"
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "btn btn-success fa fa-user-plus fa-lg" }),
+          _vm._v(" "),
+          _c("span", { staticClass: "btn btn-success fa fa-street-view fa-lg" })
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-4" })
+    ]),
+    _vm._v(" "),
+    _vm.seen
+      ? _c("div", { staticClass: "col-md-12" }, [
+          _c("div", { staticClass: "col-sm-6" }, [
+            _c(
+              "div",
+              {
+                class: {
+                  alert: "true",
+                  "alert-success": _vm.isSuccess,
+                  "alert-danger": _vm.isError
+                }
+              },
+              [
+                _c("span", {
+                  staticClass: "close fa fa-window-close",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.closeAlert($event)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("strong", [_vm._v(_vm._s(_vm.status) + "!")]),
+                _vm._v(" " + _vm._s(_vm.message) + ".\n\t\t  ")
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-6" })
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-md-12" }, [
+      _c(
+        "div",
+        { staticClass: "col-md-6" },
+        _vm._l(_vm.posts, function(post) {
+          return _c("div", [
+            _c(
+              "div",
+              { staticClass: "well well-sm", staticStyle: { height: "350px" } },
+              [
+                _c("h4", { staticClass: "time" }, [
+                  _vm._v(_vm._s(_vm._f("date")(post.created.date)))
+                ]),
+                _vm._v(" "),
+                _c("span", {
+                  staticClass: "btn btn-default fa fa-trash-alt fa-md"
+                }),
+                _vm._v(" "),
+                _c("span", { staticClass: "btn btn-default fa fa-edit fa-md" }),
+                _vm._v(" "),
+                _c("a", { staticClass: "name", attrs: { href: "" } }, [
+                  _vm._v(" " + _vm._s(post.name[0].fullname) + " ")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "well well-sm",
+                    staticStyle: { overflow: "hidden", width: "100%" }
+                  },
+                  [
+                    _vm._v(
+                      "\n\t\t\t\t\t\t" + _vm._s(post.post) + " \n\t\t\t\t\t"
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  { staticClass: "btn btn-default fa fa-thumbs-up fa-lg" },
+                  [_vm._v(" 101")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  { staticClass: "btn btn-default fa fa-comments fa-lg" },
+                  [_vm._v(" 101")]
+                )
+              ]
+            )
+          ])
+        }),
+        0
+      )
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c("div", { staticClass: "col-sm-6" }, [
-          _c("div", { staticClass: "well well-sm" }, [
-            _vm._v("\n\t\t\t\t "),
-            _c("b", [_vm._v("Create Post")]),
+    return _c("div", { staticClass: "col-sm-2" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "column" }, [
+          _c("div", { staticClass: "card" }, [
+            _c("p", [_c("i", { staticClass: "fa fa-user" })]),
             _vm._v(" "),
-            _c("textarea", {
-              staticStyle: { overflow: "hidden" },
-              attrs: { placeholder: "Whats on your mind ?" }
-            }),
-            _c("br"),
+            _c("h3", [_vm._v("5,000")]),
             _vm._v(" "),
-            _c("span", { staticClass: "btn btn-primary fa fa-pencil-alt" }, [
-              _vm._v("  Post ")
-            ]),
-            _vm._v(" "),
-            _c("span", {
-              staticClass: "btn btn-success fa fa-grin-hearts fa-lg"
-            }),
-            _vm._v(" "),
-            _c("span", {
-              staticClass: "btn btn-success fa fa-user-plus fa-lg"
-            }),
-            _vm._v(" "),
-            _c("span", {
-              staticClass: "btn btn-success fa fa-street-view fa-lg"
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-sm-2" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "column" }, [
-              _c("div", { staticClass: "card" }, [
-                _c("p", [_c("i", { staticClass: "fa fa-user" })]),
-                _vm._v(" "),
-                _c("h3", [_vm._v("5,000")]),
-                _vm._v(" "),
-                _c("p", [_vm._v("Friends")])
-              ])
-            ])
+            _c("p", [_vm._v("Friends")])
           ])
         ])
       ])

@@ -25,3 +25,5 @@ Route::post('/login', 'AxiosCall\AccountsManagement@loginAccount');
 Route::resource('/profile', 'AxiosCall\ProfileManagement');
 
 #Homepage Management
+Route::get('/post', 'AxiosCall\HomepageManagement@index');
+Route::post('/post', 'AxiosCall\HomepageManagement@store');

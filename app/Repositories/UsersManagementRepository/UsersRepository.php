@@ -4,6 +4,7 @@ namespace App\Repositories\UsersManagementRepository;
 
 
 use App\Models\AccountsManagementModel;
+use Illuminate\Support\Facades\Auth;
 
 
 
