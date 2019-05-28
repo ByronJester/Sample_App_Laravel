@@ -37,13 +37,10 @@ class HomepageRepository implements HomepageRepositoryInterface {
     return $res;
   }
 
-  public function getPosts(){
-    // $posts = $this->model->orderBy('created_at', 'desc')->get();
-    // return $posts;
-
+  public function getPosts($request){
+    $res   = [];
+    $id    = $request->session()->get('id');
     $posts = $this->post_model->all();
-
-    $res = [];
 
     foreach ($posts as $post) {
       $arr = [
@@ -52,13 +49,53 @@ class HomepageRepository implements HomepageRepositoryInterface {
         'post'    => $post->post,
         'created' => $post->created_at,
         'updated' => $post->updated_at,
-        'name'    => $this->user_model->where('user_id', $post->user_id)->get(['fullname'])
+        'owner'   => $post->user_id == $id ? true : false,
+        'name'    => count($this->user_model->where('user_id', $post->user_id)->get(['fullname'])) > 0
+                     ? $this->user_model->where('user_id', $post->user_id)->get(['fullname'])[0]['fullname']
+                     : "Unknown User"
       ];
-
+      
       array_push($res, $arr);
     }
 
+   
     return $res;
 
+  }
+
+  public function deletePost($id){
+    $has_deleted = $this->post_model->where('post_id', $id)->delete();
+    $code = 0;
+    $msg  = "There's an error in deleting post!";
+
+    if($has_deleted){
+      $code = 1;
+      $msg  = "You successfuly deleted your post!";
+    }
+
+    $res = [
+      'code' => $code,
+      'msg'  => $msg
+    ];
+
+    return $res;
+  }
+
+  public function editPost($request, $id){
+    $has_updated = $this->post_model->where('post_id', $id)->update(['post' => $request->post]);
+    $code = 0;
+    $msg  = "There's an error in updating your post!";
+
+    if($has_updated){
+      $code = 1;
+      $msg  = "Successfully updated your post!";
+    }
+
+    $res = [
+      'code' => $code,
+      'msg'  => $msg
+    ];
+
+    return $res;
   }
 } 

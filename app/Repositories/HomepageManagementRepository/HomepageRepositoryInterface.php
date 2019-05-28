@@ -22,5 +22,27 @@ interface HomepageRepositoryInterface {
 	 * @method GET
 	 *
 	 */
-	public function getPosts();
+	public function getPosts($request);
+
+	/**
+	 * Delete Specific Post
+	 *
+	 * @param  Int
+	 * @return boolean
+	 * @method DELETE
+	 *
+	 */
+	public function deletePost($id);
+
+
+	/**
+	 * Edit Specific Post
+	 *
+	 * @param  Int && Object
+	 * @return boolean
+	 * @method PATCH
+	 *
+	 */
+	public function editPost($request, $id);
+
 }
