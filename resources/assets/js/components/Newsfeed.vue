@@ -63,8 +63,8 @@
 							<div class="well well-sm" style="overflow: hidden; width: 100%" >
 								{{post.post}} 
 							</div>
-							<span class="btn btn-default fa fa-thumbs-up fa-lg" v-on:click.prevent = "likePost(post.post_id)" :style="{'color': likeColor}">
-								{{post.count}}
+							<span class="btn btn-default fa fa-thumbs-up fa-lg" v-on:click.prevent = "likePost(post.post_id)" 
+								:style="[post.color ? like : unlike ]"> {{post.count}}
 							</span>
 							<span class="btn btn-default fa fa-comments fa-lg"> 101</span>
 						</div>
@@ -99,7 +99,12 @@
 				isEdited  : false,
 				post_id   : '',
 				user_id 	: '',
-				likeColor : '#95a5a6'
+				unlike    : {
+			    color: '#95a5a6',
+			  },
+			  like 		: {
+			  	color: '#2980b9',
+			  },
 			}
 		},
 
@@ -279,11 +284,6 @@
 					data: {'post_id': id}
 				}).then(response => {
 					this.getPost()
-					if(response.data.code > 0){
-						this.likeColor = '#2980b9'
-					}else{
-						this.likeColor = '#95a5a6'
-					}
 				}).catch(error => {
 
 				})

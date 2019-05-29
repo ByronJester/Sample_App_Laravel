@@ -47200,7 +47200,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			isEdited: false,
 			post_id: '',
 			user_id: '',
-			likeColor: '#95a5a6'
+			unlike: {
+				color: '#95a5a6'
+			},
+			like: {
+				color: '#2980b9'
+			}
 		};
 	},
 
@@ -47382,11 +47387,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				data: { 'post_id': id }
 			}).then(function (response) {
 				_this5.getPost();
-				if (response.data.code > 0) {
-					_this5.likeColor = '#2980b9';
-				} else {
-					_this5.likeColor = '#95a5a6';
-				}
 			}).catch(function (error) {});
 		}
 
@@ -47565,7 +47565,7 @@ var render = function() {
                           {
                             staticClass:
                               "btn btn-default fa fa-thumbs-up fa-lg",
-                            style: { color: _vm.likeColor },
+                            style: [post.color ? _vm.like : _vm.unlike],
                             on: {
                               click: function($event) {
                                 $event.preventDefault()
@@ -47575,9 +47575,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\r\n\t\t\t\t\t\t\t\t" +
-                                _vm._s(post.count) +
-                                "\r\n\t\t\t\t\t\t\t"
+                              " " + _vm._s(post.count) + "\r\n\t\t\t\t\t\t\t"
                             )
                           ]
                         ),

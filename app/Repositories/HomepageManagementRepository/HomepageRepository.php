@@ -60,7 +60,10 @@ class HomepageRepository implements HomepageRepositoryInterface {
         'owner'   => $post->user_id == $id ? true : false,
         'name'    => count($this->user_model->where('user_id', $post->user_id)->get(['fullname'])) > 0
                      ? $this->user_model->where('user_id', $post->user_id)->get(['fullname'])[0]['fullname']
-                     : "Unknown User"
+                     : "Unknown User",
+        'color'   => count($this->like_model->all()->where('is_like', 1)->where('post_id', $post->post_id)->where('user_id', $id)) > 0
+                     ? true
+                     : false
       ];
       
       array_push($res, $arr);
@@ -147,4 +150,5 @@ class HomepageRepository implements HomepageRepositoryInterface {
 
     return $res;
   }
+
 } 
