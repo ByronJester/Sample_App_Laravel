@@ -24,8 +24,10 @@ Route::post('/login', 'AxiosCall\AccountsManagement@loginAccount');
 #Profile Management
 Route::resource('/profile', 'AxiosCall\ProfileManagement');
 
-#Homepage Management
+#Newsfeed Post Management
 Route::get('/post', 'AxiosCall\HomepageManagement@index');
 Route::post('/post', 'AxiosCall\HomepageManagement@store');
 Route::delete('/post/{id}', 'AxiosCall\HomepageManagement@delete');
 Route::patch('/post/{id}', 'AxiosCall\HomepageManagement@update');
+#Like Post Management
+Route::post('/like','AxiosCall\HomepageManagement@like');

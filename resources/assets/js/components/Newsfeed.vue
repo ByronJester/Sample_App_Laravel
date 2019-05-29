@@ -30,13 +30,7 @@
 
 			<div class="col-sm-3">
 				<div class="row">
-				  <div class="column">
-				    <div class="card">
-				      <p><i class="fa fa-user"></i></p>
-				      <h3>100</h3>
-				      <p>Followers</p>
-				    </div>
-				  </div>
+				  
 				</div>
 			</div>
 		</div>
@@ -44,14 +38,12 @@
 
 	<div class = "row">
 		<div class="col-md-12" v-if = "seen">
-			<div class="col-sm-6">
+			<div class="col-sm-9">
+			</div>
+			<div class="col-sm-3">
 				<div v-bind:class="{alert: 'true', 'alert-success': isSuccess, 'alert-danger': isError}">
-					<span class="close fa fa-window-close" v-on:click.prevent = "closeAlert"></span>
 			    <strong>{{status}}!</strong> {{message}}.
 			  </div>
-			</div>
-
-			<div class="col-sm-6">
 			</div>
 		</div>
 	</div>
@@ -59,9 +51,6 @@
 	<div class = "row">
 		<div class="col-md-12">
 			<div class="col-md-6">
-				<div v-if = "isDeleted" v-bind:class="{alert: 'true', 'alert-success': isSuccess, 'alert-danger': isError}">
-				  <strong>{{status}}!</strong> {{message}}.
-				</div>
 				<div v-for = "post in posts">
 					<div class="well well-sm" style="height: 350px;">
 						<h4 class="time">{{post.created.date | date}}</h4>
@@ -74,7 +63,9 @@
 							<div class="well well-sm" style="overflow: hidden; width: 100%" >
 								{{post.post}} 
 							</div>
-							<span class="btn btn-default fa fa-thumbs-up fa-lg"> 101</span>
+							<span class="btn btn-default fa fa-thumbs-up fa-lg" v-on:click.prevent = "likePost(post.post_id)" :style="{'color': likeColor}">
+								{{post.count}}
+							</span>
 							<span class="btn btn-default fa fa-comments fa-lg"> 101</span>
 						</div>
 						<div v-if = "isEdited">
@@ -88,7 +79,6 @@
 			</div>
 		</div>
 	</div>
-
 </div>
 </template> 
 
@@ -108,8 +98,8 @@
 				isDeleted : false,
 				isEdited  : false,
 				post_id   : '',
-				user_id 	: ''
-
+				user_id 	: '',
+				likeColor : '#95a5a6'
 			}
 		},
 
@@ -146,7 +136,7 @@
 
 						setTimeout(function () {
 						  this.seen = false
-						}.bind(this), 3000)
+						}.bind(this), 4000)
 					}else{
 						if(response.data.code > 0){
 							this.isError 	 = false
@@ -158,7 +148,7 @@
 							setTimeout(function () {
 							  this.seen = false
 							  this.user.post = ''
-							}.bind(this), 3000)
+							}.bind(this), 4000)
 						}else{
 							this.isSuccess = false
 							this.isError 	 = true
@@ -168,18 +158,13 @@
 
 							setTimeout(function () {
 							  this.seen = false
-							}.bind(this), 3000)
+							}.bind(this), 4000)
 						}
 					}
 
 				}).catch(error => {
 
 				})
-			},
-
-			closeAlert: function(){
-				this.seen = false
-				this.user.post = ''
 			},
 
 			editPost: function(id, uid){
@@ -198,13 +183,13 @@
 					if(response.data.code == 'error'){
 						this.isSuccess = false
 						this.isError 	 = true
-						this.status  	 = 'Warning'
+						this.status  	 = 'Error'
 						this.message 	 = response.data.msg.post[0]
 						this.seen  		 = true
 
 						setTimeout(function () {
 						  this.seen = false
-						}.bind(this), 2500)
+						}.bind(this), 4000)
 					}else{
 						if(response.data.code > 0){
 							this.getPost()
@@ -218,17 +203,17 @@
 
 							setTimeout(function () {
 							  this.seen = false
-							}.bind(this), 2500)
+							}.bind(this), 4000)
 						}else{
 							this.isSuccess = false
 							this.isError 	 = true
-							this.status  	 = 'Warning'
+							this.status  	 = 'Error'
 							this.message 	 = response.data.msg
 							this.seen  		 = true
 
 							setTimeout(function () {
 							  this.seen = false
-							}.bind(this), 2500)
+							}.bind(this), 4000)
 						}
 					}
 				}).catch(error => {
@@ -239,6 +224,7 @@
 			cancelEdit: function(){
 				this.has_edited = true
 				this.isEdited 	= false
+				this.getPost()
 			},
 
 			deletePost: function(id, uid){
@@ -257,34 +243,51 @@
 						url: 	`/api/post/${id}`,
 						data: {'user_id': uid}
 					}).then(response => {
-						this.getPost()
 						if(response.data.code > 0){
-							this.isDeleted = true
-							this.isError 	 = false
+							this.getPost()
 							this.isSuccess = true
-							this.status    = 'OKAY'
-							this.message   = response.data.msg
+							this.isError 	 = false
+							this.status  	 = 'OKAY'
+							this.message 	 = response.data.msg
+							this.seen  		 = true
 
 							setTimeout(function () {
-							  this.isDeleted = false
-							}.bind(this), 2500)
+							  this.seen = false
+							}.bind(this), 4000)
 						}else{
-							this.isDeleted = true
 							this.isSuccess = false
 							this.isError 	 = true
-							this.status    = 'Oppps'
-							this.message   = response.data.msg
+							this.status  	 = 'Warning'
+							this.message 	 = response.data.msg
+							this.seen  		 = true
 
 							setTimeout(function () {
-							  this.isDeleted = false
-							}.bind(this), 2500)
+							  this.seen = false
+							}.bind(this), 4000)
 						}
 					}).catch(error => {
 
 					})
 				}, dismiss => {
 				})
-			}
+			},
+
+			likePost: function(id){
+				axios({
+					method: 'POST',
+					url: '/api/like',
+					data: {'post_id': id}
+				}).then(response => {
+					this.getPost()
+					if(response.data.code > 0){
+						this.likeColor = '#2980b9'
+					}else{
+						this.likeColor = '#95a5a6'
+					}
+				}).catch(error => {
+
+				})
+			},		
 
 		},
 
@@ -323,6 +326,10 @@
 		float: right;
 		color: #00b894;
 	}
+
+	.alert{
+		bottom: 0px;
+	}
 		
 
 	.fa-edit{
@@ -349,6 +356,10 @@
 		margin-bottom: 5px;
 	}
 
+	.fa-user {
+		font-size:50px;
+	}
+
 	.btn-success {
 		background-color: #16a085;
 		padding-top: 9px;
@@ -364,9 +375,9 @@
 
 	.column {
 	  float: center;
-	  width: 100%;
+	  width: 15%;
 	  padding: 0 5px;
-
+	  position: fixed;
 	}
 
 	.row {
@@ -389,11 +400,25 @@
 		color: black;
 	}
 
+	.alert{
+		bottom: 0px;
+		position: fixed;
+	}
+
+
 	@media screen and (max-width: 600px) {
 	  .column {
 	    width: 100%;
 	    display: block;
 	    margin-bottom: 10px;
+	    position: relative;
+	  }
+
+	  .alert{
+	  	width: 100%;
+	  	display: block;
+	    margin-bottom: 10px;
+	    position: relative;
 	  }
 	}
 
@@ -404,11 +429,6 @@
 	  background-color: #444;
 	  color: white;
 	  height: 182px;
-	  /*position: fixed;*/
-	}
-
-	.fa-user {
-		font-size:50px;
 	}
 
 	textarea {

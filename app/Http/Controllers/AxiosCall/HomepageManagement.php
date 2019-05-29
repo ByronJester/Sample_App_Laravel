@@ -16,7 +16,6 @@ class HomepageManagement extends Controller
 
 	}
 
-
 	public function index(Request $request){
 		return $this->repo->getPosts($request);
 	}
@@ -30,7 +29,7 @@ class HomepageManagement extends Controller
     if($validator->fails()){
     	$res = [
     		'error'  	=> count($validator->errors()),
-    		'status'	=> 'Warning',
+    		'status'	=> 'Error',
     		'msg' 		=> $validator->errors()
     	];
 
@@ -80,7 +79,9 @@ class HomepageManagement extends Controller
 	  		return $res;
 	  	}
     }
+  }
 
-  	
+  public function like(Request $request){
+  	return $this->repo->likePost($request);
   }
 }

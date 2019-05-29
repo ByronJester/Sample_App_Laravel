@@ -47088,7 +47088,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.post {\n\twidth: 60%;\n}\n.name {\n\tfont-family: Courier New;\n\tfont-size: 15px;\n\tcolor: black !important;\n\tfont-weight: bold;\n}\n.well-sm {\n}\n.fa-thumbs-up {\n\twidth: 49%;\n\ttext-align: center;\n\tfloat: left;\n\tcolor: #2e86de;\n}\n.fa-comments {\n\twidth: 49%;\n\ttext-align: center;\n\tfloat: right;\n\tcolor: #00b894;\n}\n.fa-edit{\n\tbackground-color: #2980b9;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-trash-alt {\n\tbackground-color: #eb4d4b;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-copy{\n\tbackground-color: #2980b9;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-window-close{\n\tbackground-color: #d63031;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.btn-success {\n\tbackground-color: #16a085;\n\tpadding-top: 9px;\n\tpadding-bottom: 11px;\n}\n.btn-primary {\n\tbackground-color: #2980b9;\n\tpadding-top: 9px;\n\tpadding-bottom: 11px;\n}\n.column {\n  float: center;\n  width: 100%;\n  padding: 0 5px;\n}\n.row {\n\tmargin: 0 -5px;\n}\n.row:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n.alert-success{\n\tbackground-color: #00cec9;\n\tcolor: black;\n}\n.alert-danger{\n\tbackground-color: #ff7675;\n\tcolor: black;\n}\n@media screen and (max-width: 600px) {\n.column {\n    width: 100%;\n    display: block;\n    margin-bottom: 10px;\n}\n}\n.card {\n  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n  padding: 16px;\n  text-align: center;\n  background-color: #444;\n  color: white;\n  height: 182px;\n  /*position: fixed;*/\n}\n.fa-user {\n\tfont-size:50px;\n}\ntextarea {\n\twidth: 100%;\n\theight: 100px;\n}\n.time {\n\tfont-family: Courier New;\n\ttext-align: right !important;\n\tfont-size: 12px;\n}\n.action {\n\tfloat: right;\n}\n\n", ""]);
+exports.push([module.i, "\n.post {\n\twidth: 60%;\n}\n.name {\n\tfont-family: Courier New;\n\tfont-size: 15px;\n\tcolor: black !important;\n\tfont-weight: bold;\n}\n.well-sm {\n}\n.fa-thumbs-up {\n\twidth: 49%;\n\ttext-align: center;\n\tfloat: left;\n\tcolor: #2e86de;\n}\n.fa-comments {\n\twidth: 49%;\n\ttext-align: center;\n\tfloat: right;\n\tcolor: #00b894;\n}\n.alert{\n\tbottom: 0px;\n}\n.fa-edit{\n\tbackground-color: #2980b9;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-trash-alt {\n\tbackground-color: #eb4d4b;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-copy{\n\tbackground-color: #2980b9;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-window-close{\n\tbackground-color: #d63031;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-user {\n\tfont-size:50px;\n}\n.btn-success {\n\tbackground-color: #16a085;\n\tpadding-top: 9px;\n\tpadding-bottom: 11px;\n}\n.btn-primary {\n\tbackground-color: #2980b9;\n\tpadding-top: 9px;\n\tpadding-bottom: 11px;\n}\n.column {\n  float: center;\n  width: 15%;\n  padding: 0 5px;\n  position: fixed;\n}\n.row {\n\tmargin: 0 -5px;\n}\n.row:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n.alert-success{\n\tbackground-color: #00cec9;\n\tcolor: black;\n}\n.alert-danger{\n\tbackground-color: #ff7675;\n\tcolor: black;\n}\n.alert{\n\tbottom: 0px;\n\tposition: fixed;\n}\n@media screen and (max-width: 600px) {\n.column {\n    width: 100%;\n    display: block;\n    margin-bottom: 10px;\n    position: relative;\n}\n.alert{\n  \twidth: 100%;\n  \tdisplay: block;\n    margin-bottom: 10px;\n    position: relative;\n}\n}\n.card {\n  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n  padding: 16px;\n  text-align: center;\n  background-color: #444;\n  color: white;\n  height: 182px;\n}\ntextarea {\n\twidth: 100%;\n\theight: 100px;\n}\n.time {\n\tfont-family: Courier New;\n\ttext-align: right !important;\n\tfont-size: 12px;\n}\n.action {\n\tfloat: right;\n}\n\n", ""]);
 
 // exports
 
@@ -47099,16 +47099,6 @@ exports.push([module.i, "\n.post {\n\twidth: 60%;\n}\n.name {\n\tfont-family: Co
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -47209,8 +47199,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			isDeleted: false,
 			isEdited: false,
 			post_id: '',
-			user_id: ''
-
+			user_id: '',
+			likeColor: '#95a5a6'
 		};
 	},
 
@@ -47251,7 +47241,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 					setTimeout(function () {
 						this.seen = false;
-					}.bind(_this2), 3000);
+					}.bind(_this2), 4000);
 				} else {
 					if (response.data.code > 0) {
 						_this2.isError = false;
@@ -47263,7 +47253,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 						setTimeout(function () {
 							this.seen = false;
 							this.user.post = '';
-						}.bind(_this2), 3000);
+						}.bind(_this2), 4000);
 					} else {
 						_this2.isSuccess = false;
 						_this2.isError = true;
@@ -47273,15 +47263,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 						setTimeout(function () {
 							this.seen = false;
-						}.bind(_this2), 3000);
+						}.bind(_this2), 4000);
 					}
 				}
 			}).catch(function (error) {});
-		},
-
-		closeAlert: function closeAlert() {
-			this.seen = false;
-			this.user.post = '';
 		},
 
 		editPost: function editPost(id, uid) {
@@ -47302,13 +47287,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				if (response.data.code == 'error') {
 					_this3.isSuccess = false;
 					_this3.isError = true;
-					_this3.status = 'Warning';
+					_this3.status = 'Error';
 					_this3.message = response.data.msg.post[0];
 					_this3.seen = true;
 
 					setTimeout(function () {
 						this.seen = false;
-					}.bind(_this3), 2500);
+					}.bind(_this3), 4000);
 				} else {
 					if (response.data.code > 0) {
 						_this3.getPost();
@@ -47322,17 +47307,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 						setTimeout(function () {
 							this.seen = false;
-						}.bind(_this3), 2500);
+						}.bind(_this3), 4000);
 					} else {
 						_this3.isSuccess = false;
 						_this3.isError = true;
-						_this3.status = 'Warning';
+						_this3.status = 'Error';
 						_this3.message = response.data.msg;
 						_this3.seen = true;
 
 						setTimeout(function () {
 							this.seen = false;
-						}.bind(_this3), 2500);
+						}.bind(_this3), 4000);
 					}
 				}
 			}).catch(function (error) {});
@@ -47341,6 +47326,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		cancelEdit: function cancelEdit() {
 			this.has_edited = true;
 			this.isEdited = false;
+			this.getPost();
 		},
 
 		deletePost: function deletePost(id, uid) {
@@ -47361,30 +47347,47 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					url: '/api/post/' + id,
 					data: { 'user_id': uid }
 				}).then(function (response) {
-					_this4.getPost();
 					if (response.data.code > 0) {
-						_this4.isDeleted = true;
-						_this4.isError = false;
+						_this4.getPost();
 						_this4.isSuccess = true;
+						_this4.isError = false;
 						_this4.status = 'OKAY';
 						_this4.message = response.data.msg;
+						_this4.seen = true;
 
 						setTimeout(function () {
-							this.isDeleted = false;
-						}.bind(_this4), 2500);
+							this.seen = false;
+						}.bind(_this4), 4000);
 					} else {
-						_this4.isDeleted = true;
 						_this4.isSuccess = false;
 						_this4.isError = true;
-						_this4.status = 'Oppps';
+						_this4.status = 'Warning';
 						_this4.message = response.data.msg;
+						_this4.seen = true;
 
 						setTimeout(function () {
-							this.isDeleted = false;
-						}.bind(_this4), 2500);
+							this.seen = false;
+						}.bind(_this4), 4000);
 					}
 				}).catch(function (error) {});
 			}, function (dismiss) {});
+		},
+
+		likePost: function likePost(id) {
+			var _this5 = this;
+
+			axios({
+				method: 'POST',
+				url: '/api/like',
+				data: { 'post_id': id }
+			}).then(function (response) {
+				_this5.getPost();
+				if (response.data.code > 0) {
+					_this5.likeColor = '#2980b9';
+				} else {
+					_this5.likeColor = '#95a5a6';
+				}
+			}).catch(function (error) {});
 		}
 
 	},
@@ -47472,7 +47475,9 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _vm.seen
         ? _c("div", { staticClass: "col-md-12" }, [
-            _c("div", { staticClass: "col-sm-6" }, [
+            _c("div", { staticClass: "col-sm-9" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-3" }, [
               _c(
                 "div",
                 {
@@ -47483,23 +47488,11 @@ var render = function() {
                   }
                 },
                 [
-                  _c("span", {
-                    staticClass: "close fa fa-window-close",
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.closeAlert($event)
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
                   _c("strong", [_vm._v(_vm._s(_vm.status) + "!")]),
                   _vm._v(" " + _vm._s(_vm.message) + ".\r\n\t\t\t  ")
                 ]
               )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-6" })
+            ])
           ])
         : _vm._e()
     ]),
@@ -47509,166 +47502,155 @@ var render = function() {
         _c(
           "div",
           { staticClass: "col-md-6" },
-          [
-            _vm.isDeleted
-              ? _c(
-                  "div",
-                  {
-                    class: {
-                      alert: "true",
-                      "alert-success": _vm.isSuccess,
-                      "alert-danger": _vm.isError
-                    }
-                  },
-                  [
-                    _c("strong", [_vm._v(_vm._s(_vm.status) + "!")]),
-                    _vm._v(" " + _vm._s(_vm.message) + ".\r\n\t\t\t\t")
-                  ]
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            _vm._l(_vm.posts, function(post) {
-              return _c("div", [
-                _c(
-                  "div",
-                  {
-                    staticClass: "well well-sm",
-                    staticStyle: { height: "350px" }
-                  },
-                  [
-                    _c("h4", { staticClass: "time" }, [
-                      _vm._v(_vm._s(_vm._f("date")(post.created.date)))
-                    ]),
-                    _vm._v(" "),
-                    post.owner
-                      ? _c("div", { staticClass: "action" }, [
-                          _c("span", {
-                            staticClass: "btn btn-default fa fa-edit fa-md",
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.editPost(post.post_id, post.user_id)
-                              }
+          _vm._l(_vm.posts, function(post) {
+            return _c("div", [
+              _c(
+                "div",
+                {
+                  staticClass: "well well-sm",
+                  staticStyle: { height: "350px" }
+                },
+                [
+                  _c("h4", { staticClass: "time" }, [
+                    _vm._v(_vm._s(_vm._f("date")(post.created.date)))
+                  ]),
+                  _vm._v(" "),
+                  post.owner
+                    ? _c("div", { staticClass: "action" }, [
+                        _c("span", {
+                          staticClass: "btn btn-default fa fa-edit fa-md",
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.editPost(post.post_id, post.user_id)
                             }
-                          }),
-                          _vm._v(" "),
-                          _c("span", {
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span", {
+                          staticClass: "btn btn-default fa fa-trash-alt fa-md",
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.deletePost(post.post_id, post.user_id)
+                            }
+                          }
+                        })
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("a", { staticClass: "name", attrs: { href: "" } }, [
+                    _vm._v(" " + _vm._s(post.name) + " ")
+                  ]),
+                  _vm._v(" "),
+                  _vm.has_edited
+                    ? _c("div", [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "well well-sm",
+                            staticStyle: { overflow: "hidden", width: "100%" }
+                          },
+                          [
+                            _vm._v(
+                              "\r\n\t\t\t\t\t\t\t\t" +
+                                _vm._s(post.post) +
+                                " \r\n\t\t\t\t\t\t\t"
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
                             staticClass:
-                              "btn btn-default fa fa-trash-alt fa-md",
+                              "btn btn-default fa fa-thumbs-up fa-lg",
+                            style: { color: _vm.likeColor },
                             on: {
                               click: function($event) {
                                 $event.preventDefault()
-                                return _vm.deletePost(
-                                  post.post_id,
-                                  post.user_id
-                                )
+                                return _vm.likePost(post.post_id)
                               }
                             }
-                          })
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c("a", { staticClass: "name", attrs: { href: "" } }, [
-                      _vm._v(" " + _vm._s(post.name) + " ")
-                    ]),
-                    _vm._v(" "),
-                    _vm.has_edited
-                      ? _c("div", [
-                          _c(
-                            "div",
+                          },
+                          [
+                            _vm._v(
+                              "\r\n\t\t\t\t\t\t\t\t" +
+                                _vm._s(post.count) +
+                                "\r\n\t\t\t\t\t\t\t"
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            staticClass: "btn btn-default fa fa-comments fa-lg"
+                          },
+                          [_vm._v(" 101")]
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.isEdited
+                    ? _c("div", [
+                        _c("textarea", {
+                          directives: [
                             {
-                              staticClass: "well well-sm",
-                              staticStyle: { overflow: "hidden", width: "100%" }
-                            },
-                            [
-                              _vm._v(
-                                "\r\n\t\t\t\t\t\t\t\t" +
-                                  _vm._s(post.post) +
-                                  " \r\n\t\t\t\t\t\t\t"
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "span",
-                            {
-                              staticClass:
-                                "btn btn-default fa fa-thumbs-up fa-lg"
-                            },
-                            [_vm._v(" 101")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "span",
-                            {
-                              staticClass:
-                                "btn btn-default fa fa-comments fa-lg"
-                            },
-                            [_vm._v(" 101")]
-                          )
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.isEdited
-                      ? _c("div", [
-                          _c("textarea", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: post.post,
-                                expression: "post.post"
+                              name: "model",
+                              rawName: "v-model",
+                              value: post.post,
+                              expression: "post.post"
+                            }
+                          ],
+                          staticStyle: { overflow: "hidden" },
+                          domProps: { value: post.post },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
                               }
-                            ],
-                            staticStyle: { overflow: "hidden" },
-                            domProps: { value: post.post },
+                              _vm.$set(post, "post", $event.target.value)
+                            }
+                          }
+                        }),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            staticClass: "btn btn-default fa fa-copy fa-md",
                             on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(post, "post", $event.target.value)
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.confirmEdit(post.post)
                               }
                             }
-                          }),
-                          _c("br"),
-                          _vm._v(" "),
-                          _c(
-                            "span",
-                            {
-                              staticClass: "btn btn-default fa fa-copy fa-md",
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.confirmEdit(post.post)
-                                }
+                          },
+                          [_vm._v(" Edit")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            staticClass:
+                              "btn btn-default fa fa-window-close fa-md",
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.cancelEdit($event)
                               }
-                            },
-                            [_vm._v(" Edit")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "span",
-                            {
-                              staticClass:
-                                "btn btn-default fa fa-window-close fa-md",
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.cancelEdit($event)
-                                }
-                              }
-                            },
-                            [_vm._v(" Cancel")]
-                          )
-                        ])
-                      : _vm._e()
-                  ]
-                )
-              ])
-            })
-          ],
-          2
+                            }
+                          },
+                          [_vm._v(" Cancel")]
+                        )
+                      ])
+                    : _vm._e()
+                ]
+              )
+            ])
+          }),
+          0
         )
       ])
     ])
@@ -47698,17 +47680,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-sm-3" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "column" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("p", [_c("i", { staticClass: "fa fa-user" })]),
-            _vm._v(" "),
-            _c("h3", [_vm._v("100")]),
-            _vm._v(" "),
-            _c("p", [_vm._v("Followers")])
-          ])
-        ])
-      ])
+      _c("div", { staticClass: "row" })
     ])
   }
 ]

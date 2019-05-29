@@ -7,7 +7,7 @@ interface HomepageRepositoryInterface {
 	 * Create Post
 	 *
 	 * @param  Object $request
-	 * @return boolean
+	 * @return Boolean
 	 * @method POST
 	 * 
 	 */
@@ -18,7 +18,7 @@ interface HomepageRepositoryInterface {
 	 * Get All Post
 	 *
 	 * @param
-	 * @return array
+	 * @return Array
 	 * @method GET
 	 *
 	 */
@@ -28,7 +28,7 @@ interface HomepageRepositoryInterface {
 	 * Delete Specific Post
 	 *
 	 * @param  Int
-	 * @return boolean
+	 * @return Boolean
 	 * @method DELETE
 	 *
 	 */
@@ -39,10 +39,20 @@ interface HomepageRepositoryInterface {
 	 * Edit Specific Post
 	 *
 	 * @param  Int && Object
-	 * @return boolean
+	 * @return Boolean
 	 * @method PATCH
 	 *
 	 */
 	public function editPost($request, $id);
+
+	/**
+	 * Like Post
+	 *
+	 * @param  Object
+	 * @return Boolean
+	 * @method POST
+	 *
+	 */
+	public function likePost($request);
 
 }
