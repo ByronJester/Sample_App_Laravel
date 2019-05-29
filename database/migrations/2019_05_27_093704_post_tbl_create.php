@@ -16,7 +16,7 @@ class PostTblCreate extends Migration
         Schema::create('post_tbl', function (Blueprint $table) {
             $table->increments('post_id');
             $table->integer('user_id');
-            $table->string('post');
+            $table->text('post');
             $table->timestamps();
         });
     }

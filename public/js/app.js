@@ -47088,7 +47088,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.post {\n\twidth: 60%;\n}\n.name {\n\tfont-family: monospace;\n\tfont-size: 15px;\n\tcolor: black !important;\n}\n.well-sm {\n}\n.fa-thumbs-up {\n\twidth: 49%;\n\ttext-align: center;\n\tfloat: left;\n\tcolor: #2e86de;\n}\n.fa-comments {\n\twidth: 49%;\n\ttext-align: center;\n\tfloat: right;\n\tcolor: #00b894;\n}\n.alert{\n\tbottom: 0px;\n}\n.fa-edit{\n\tbackground-color: #2980b9;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-trash-alt {\n\tbackground-color: #eb4d4b;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-copy{\n\tbackground-color: #2980b9;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-window-close{\n\tbackground-color: #d63031;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-user {\n\tfont-size:50px;\n}\n.btn-success {\n\tbackground-color: #16a085;\n\tpadding-top: 9px;\n\tpadding-bottom: 11px;\n}\n.btn-primary {\n\tbackground-color: #2980b9;\n\tpadding-top: 9px;\n\tpadding-bottom: 11px;\n}\n.column {\n  float: center;\n  width: 15%;\n  padding: 0 5px;\n  position: fixed;\n}\n.row {\n\tmargin: 0 -5px;\n}\n.row:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n.alert-success{\n\tbackground-color: #00cec9;\n\tcolor: black;\n}\n.alert-danger{\n\tbackground-color: #ff7675;\n\tcolor: black;\n}\n.alert{\n\tbottom: 0px;\n\tposition: fixed;\n}\n@media screen and (max-width: 600px) {\n.column {\n    width: 100%;\n    display: block;\n    margin-bottom: 10px;\n    position: relative;\n}\n.alert{\n  \twidth: 100%;\n  \tdisplay: block;\n    margin-bottom: 10px;\n    position: relative;\n}\n}\n.card {\n  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n  padding: 16px;\n  text-align: center;\n  background-color: #444;\n  color: white;\n  height: 182px;\n}\ntextarea {\n\twidth: 100%;\n\theight: 100px;\n}\n.time {\n\tfont-family: Courier New;\n\ttext-align: right !important;\n\tfont-size: 12px;\n}\n.action {\n\tfloat: right;\n}\n\n", ""]);
+exports.push([module.i, "\n.post {\n\twidth: 60%;\n}\n.name {\n\tfont-family: monospace;\n\tfont-size: 15px;\n\tcolor: black !important;\n}\n.well-sm {\n}\n.fa-thumbs-up {\n\twidth: 49%;\n\ttext-align: center;\n\tfloat: left;\n\tcolor: #2e86de;\n}\n.fa-comments {\n\twidth: 49%;\n\ttext-align: center;\n\tfloat: right;\n\tcolor: #00b894;\n}\n.alert{\n\tbottom: 0px;\n}\n.fa-edit{\n\tbackground-color: #2980b9;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-trash-alt {\n\tbackground-color: #eb4d4b;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-copy{\n\tbackground-color: #2980b9;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-window-close{\n\tbackground-color: #d63031;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-user {\n\tfont-size:50px;\n}\n.btn-success {\n\tbackground-color: #16a085;\n\tpadding-top: 9px;\n\tpadding-bottom: 11px;\n}\n.btn-primary {\n\tbackground-color: #2980b9;\n\tpadding-top: 9px;\n\tpadding-bottom: 11px;\n}\n.column {\n  float: center;\n  width: 15%;\n  padding: 0 5px;\n  position: fixed;\n}\n.row {\n\tmargin: 0 -5px;\n}\n.row:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n.alert-success{\n\tbackground-color: #00cec9;\n\tcolor: black;\n}\n.alert-danger{\n\tbackground-color: #ff7675;\n\tcolor: black;\n}\n.alert{\n\tbottom: 0px;\n\tposition: fixed;\n}\n@media screen and (max-width: 600px) {\n.column {\n    width: 100%;\n    display: block;\n    margin-bottom: 10px;\n    position: relative;\n}\n.alert{\n  \twidth: 100%;\n  \tdisplay: block;\n    margin-bottom: 10px;\n    position: relative;\n}\n}\n.card {\n  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n  padding: 16px;\n  text-align: center;\n  background-color: #444;\n  color: white;\n  height: 182px;\n}\ntextarea {\n\twidth: 100%;\n\theight: 100px;\n\tfont-family: Courier New;\n}\n.time {\n\tfont-family: Courier New;\n\ttext-align: right !important;\n\tfont-size: 12px;\n}\n.action {\n\tfloat: right;\n}\n.display_post {\n\toverflow-wrap: break-word;\n\theight : 100%;  \n\twidth: 100%; \n\tbackground-color: #ffffff;\n\tfont-family: Courier New;\n}\n.post_style{\n\tmargin-top: 2%;\n\tmargin-bottom: 10%;\n}\nh3, p, b{\n\tfont-family: Courier New;\n}\n\n", ""]);
 
 // exports
 
@@ -47334,7 +47334,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			swal({
 				title: 'Warning!',
 				type: 'warning',
-				html: '<b>Are you sure you want to delete this post ?</b>',
+				html: '<strong>Are you sure you want to delete this post ?</strong>',
 				showCloseButton: true,
 				showCancelButton: true,
 				focusConfirm: false,
@@ -47406,7 +47406,6 @@ var render = function() {
       _c("div", { staticClass: "col-md-12" }, [
         _c("div", { staticClass: "col-sm-6" }, [
           _c("div", { staticClass: "well well-sm" }, [
-            _vm._v("\r\n\t\t\t\t\t "),
             _c("b", [_vm._v("Create Post")]),
             _vm._v(" "),
             _c("textarea", {
@@ -47500,10 +47499,7 @@ var render = function() {
             return _c("div", [
               _c(
                 "div",
-                {
-                  staticClass: "well well-sm",
-                  staticStyle: { height: "350px" }
-                },
+                { staticClass: "well well-sm", staticStyle: { height: "" } },
                 [
                   _c("h4", { staticClass: "time" }, [
                     _vm._v(_vm._s(_vm._f("date")(post.created.date)))
@@ -47538,13 +47534,10 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   post.post_id != _vm.post_id
-                    ? _c("div", [
+                    ? _c("div", { staticClass: "post_style" }, [
                         _c(
                           "div",
-                          {
-                            staticClass: "well well-sm",
-                            staticStyle: { overflow: "hidden", width: "100%" }
-                          },
+                          { staticClass: "well well-sm display_post" },
                           [
                             _vm._v(
                               "\r\n\t\t\t\t\t\t\t\t" +

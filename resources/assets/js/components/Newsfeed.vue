@@ -4,7 +4,7 @@
 		<div class = "col-md-12">
 			<div class="col-sm-6">
 				<div class="well well-sm">
-					&nbsp<b>Create Post</b>
+					<b>Create Post</b>
 					<textarea style="overflow:hidden" placeholder="Whats on your mind ?" v-model = "user.post"> 
 					</textarea><br>
 	
@@ -52,15 +52,15 @@
 		<div class="col-md-12">
 			<div class="col-md-6">
 				<div v-for = "post in posts">
-					<div class="well well-sm" style="height: 350px;">
+					<div class="well well-sm" style="height: ;">
 						<h4 class="time">{{post.created.date | date}}</h4>
 						<div v-if = "post.owner" class = "action">				
 							<span class = "btn btn-default fa fa-edit fa-md" v-on:click.prevent = "editPost(post.post_id, post.user_id)"></span>
 							<span class = "btn btn-default fa fa-trash-alt fa-md" v-on:click.prevent = "deletePost(post.post_id, post.user_id)"></span>
 						</div>
 						<a class="name" href=""> {{post.name}} </a>
-						<div v-if = "post.post_id != post_id">
-							<div class="well well-sm" style="overflow: hidden; width: 100%">
+						<div v-if = "post.post_id != post_id" class="post_style">
+							<div class="well well-sm display_post">
 								{{post.post}} 
 							</div>
 							<span class="btn btn-default fa fa-thumbs-up fa-lg" v-on:click.prevent = "likePost(post.post_id)" 
@@ -127,7 +127,7 @@
 				axios({
 					method: 'POST',
 					url: '/api/post',
-					data: this.user
+					data:  this.user
 				}).then(response => {
 					this.getPost()
 					if(response.data.error > 0){
@@ -230,7 +230,7 @@
 				swal({
 				  title: 'Warning!',
 				  type: 'warning', 
-				  html: `<b>Are you sure you want to delete this post ?</b>`,
+				  html: `<strong>Are you sure you want to delete this post ?</strong>`,
 				  showCloseButton: true,
 				  showCancelButton: true,
 				  focusConfirm: false,
@@ -281,7 +281,7 @@
 				}).catch(error => {
 
 				})
-			},		
+			}
 
 		},
 
@@ -365,7 +365,6 @@
 		padding-bottom: 11px;
 	}
 
-
 	.column {
 	  float: center;
 	  width: 15%;
@@ -427,6 +426,7 @@
 	textarea {
 		width: 100%;
 		height: 100px;
+		font-family: Courier New;
 	}
 
 	.time {
@@ -437,6 +437,23 @@
 
 	.action {
 		float: right;
+	}
+
+	.display_post {
+		overflow-wrap: break-word;
+		height : 100%;  
+		width: 100%; 
+		background-color: #ffffff;
+		font-family: Courier New;
+	}
+
+	.post_style{
+		margin-top: 2%;
+		margin-bottom: 10%;
+	}
+
+	h3, p, b{
+		font-family: Courier New;
 	}
 
 </style>
