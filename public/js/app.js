@@ -47088,7 +47088,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.post {\n\twidth: 60%;\n}\n.name {\n\tfont-family: Courier New;\n\tfont-size: 15px;\n\tcolor: black !important;\n\tfont-weight: bold;\n}\n.well-sm {\n}\n.fa-thumbs-up {\n\twidth: 49%;\n\ttext-align: center;\n\tfloat: left;\n\tcolor: #2e86de;\n}\n.fa-comments {\n\twidth: 49%;\n\ttext-align: center;\n\tfloat: right;\n\tcolor: #00b894;\n}\n.alert{\n\tbottom: 0px;\n}\n.fa-edit{\n\tbackground-color: #2980b9;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-trash-alt {\n\tbackground-color: #eb4d4b;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-copy{\n\tbackground-color: #2980b9;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-window-close{\n\tbackground-color: #d63031;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-user {\n\tfont-size:50px;\n}\n.btn-success {\n\tbackground-color: #16a085;\n\tpadding-top: 9px;\n\tpadding-bottom: 11px;\n}\n.btn-primary {\n\tbackground-color: #2980b9;\n\tpadding-top: 9px;\n\tpadding-bottom: 11px;\n}\n.column {\n  float: center;\n  width: 15%;\n  padding: 0 5px;\n  position: fixed;\n}\n.row {\n\tmargin: 0 -5px;\n}\n.row:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n.alert-success{\n\tbackground-color: #00cec9;\n\tcolor: black;\n}\n.alert-danger{\n\tbackground-color: #ff7675;\n\tcolor: black;\n}\n.alert{\n\tbottom: 0px;\n\tposition: fixed;\n}\n@media screen and (max-width: 600px) {\n.column {\n    width: 100%;\n    display: block;\n    margin-bottom: 10px;\n    position: relative;\n}\n.alert{\n  \twidth: 100%;\n  \tdisplay: block;\n    margin-bottom: 10px;\n    position: relative;\n}\n}\n.card {\n  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n  padding: 16px;\n  text-align: center;\n  background-color: #444;\n  color: white;\n  height: 182px;\n}\ntextarea {\n\twidth: 100%;\n\theight: 100px;\n}\n.time {\n\tfont-family: Courier New;\n\ttext-align: right !important;\n\tfont-size: 12px;\n}\n.action {\n\tfloat: right;\n}\n\n", ""]);
+exports.push([module.i, "\n.post {\n\twidth: 60%;\n}\n.name {\n\tfont-family: monospace;\n\tfont-size: 15px;\n\tcolor: black !important;\n}\n.well-sm {\n}\n.fa-thumbs-up {\n\twidth: 49%;\n\ttext-align: center;\n\tfloat: left;\n\tcolor: #2e86de;\n}\n.fa-comments {\n\twidth: 49%;\n\ttext-align: center;\n\tfloat: right;\n\tcolor: #00b894;\n}\n.alert{\n\tbottom: 0px;\n}\n.fa-edit{\n\tbackground-color: #2980b9;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-trash-alt {\n\tbackground-color: #eb4d4b;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-copy{\n\tbackground-color: #2980b9;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-window-close{\n\tbackground-color: #d63031;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-user {\n\tfont-size:50px;\n}\n.btn-success {\n\tbackground-color: #16a085;\n\tpadding-top: 9px;\n\tpadding-bottom: 11px;\n}\n.btn-primary {\n\tbackground-color: #2980b9;\n\tpadding-top: 9px;\n\tpadding-bottom: 11px;\n}\n.column {\n  float: center;\n  width: 15%;\n  padding: 0 5px;\n  position: fixed;\n}\n.row {\n\tmargin: 0 -5px;\n}\n.row:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n.alert-success{\n\tbackground-color: #00cec9;\n\tcolor: black;\n}\n.alert-danger{\n\tbackground-color: #ff7675;\n\tcolor: black;\n}\n.alert{\n\tbottom: 0px;\n\tposition: fixed;\n}\n@media screen and (max-width: 600px) {\n.column {\n    width: 100%;\n    display: block;\n    margin-bottom: 10px;\n    position: relative;\n}\n.alert{\n  \twidth: 100%;\n  \tdisplay: block;\n    margin-bottom: 10px;\n    position: relative;\n}\n}\n.card {\n  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n  padding: 16px;\n  text-align: center;\n  background-color: #444;\n  color: white;\n  height: 182px;\n}\ntextarea {\n\twidth: 100%;\n\theight: 100px;\n}\n.time {\n\tfont-family: Courier New;\n\ttext-align: right !important;\n\tfont-size: 12px;\n}\n.action {\n\tfloat: right;\n}\n\n", ""]);
 
 // exports
 
@@ -47192,12 +47192,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			seen: false,
 			status: '',
 			message: '',
-			has_edited: true,
 			isSuccess: false,
 			isError: false,
 			posts: [],
 			isDeleted: false,
-			isEdited: false,
 			post_id: '',
 			user_id: '',
 			unlike: {
@@ -47275,8 +47273,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		},
 
 		editPost: function editPost(id, uid) {
-			this.has_edited = false;
-			this.isEdited = true;
 			this.post_id = id;
 			this.user_id = uid;
 		},
@@ -47302,13 +47298,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				} else {
 					if (response.data.code > 0) {
 						_this3.getPost();
+						_this3.post_id = '';
 						_this3.isError = false;
 						_this3.isSuccess = true;
 						_this3.status = 'OKAY';
 						_this3.message = response.data.msg;
 						_this3.seen = true;
-						_this3.has_edited = true;
-						_this3.isEdited = false;
 
 						setTimeout(function () {
 							this.seen = false;
@@ -47328,9 +47323,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}).catch(function (error) {});
 		},
 
-		cancelEdit: function cancelEdit() {
-			this.has_edited = true;
-			this.isEdited = false;
+		cancelEdit: function cancelEdit(id) {
+			this.post_id = '';
 			this.getPost();
 		},
 
@@ -47543,7 +47537,7 @@ var render = function() {
                     _vm._v(" " + _vm._s(post.name) + " ")
                   ]),
                   _vm._v(" "),
-                  _vm.has_edited
+                  post.post_id != _vm.post_id
                     ? _c("div", [
                         _c(
                           "div",
@@ -47590,7 +47584,7 @@ var render = function() {
                       ])
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm.isEdited
+                  post.post_id == _vm.post_id
                     ? _c("div", [
                         _c("textarea", {
                           directives: [
@@ -47636,7 +47630,7 @@ var render = function() {
                             on: {
                               click: function($event) {
                                 $event.preventDefault()
-                                return _vm.cancelEdit($event)
+                                return _vm.cancelEdit()
                               }
                             }
                           },

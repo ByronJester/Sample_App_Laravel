@@ -63,7 +63,7 @@ class HomepageRepository implements HomepageRepositoryInterface {
                      : "Unknown User",
         'color'   => count($this->like_model->all()->where('is_like', 1)->where('post_id', $post->post_id)->where('user_id', $id)) > 0
                      ? true
-                     : false
+                     : false,
       ];
       
       array_push($res, $arr);

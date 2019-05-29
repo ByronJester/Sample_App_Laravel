@@ -41,7 +41,7 @@
 			<div class="col-sm-9">
 			</div>
 			<div class="col-sm-3">
-				<div v-bind:class="{alert: 'true', 'alert-success': isSuccess, 'alert-danger': isError}">
+				<div v-bind:class="{'alert': 'true', 'alert-success': isSuccess, 'alert-danger': isError}">
 			    <strong>{{status}}!</strong> {{message}}.
 			  </div>
 			</div>
@@ -59,8 +59,8 @@
 							<span class = "btn btn-default fa fa-trash-alt fa-md" v-on:click.prevent = "deletePost(post.post_id, post.user_id)"></span>
 						</div>
 						<a class="name" href=""> {{post.name}} </a>
-						<div v-if = "has_edited">
-							<div class="well well-sm" style="overflow: hidden; width: 100%" >
+						<div v-if = "post.post_id != post_id">
+							<div class="well well-sm" style="overflow: hidden; width: 100%">
 								{{post.post}} 
 							</div>
 							<span class="btn btn-default fa fa-thumbs-up fa-lg" v-on:click.prevent = "likePost(post.post_id)" 
@@ -68,11 +68,11 @@
 							</span>
 							<span class="btn btn-default fa fa-comments fa-lg"> 101</span>
 						</div>
-						<div v-if = "isEdited">
+						<div v-if = "post.post_id == post_id">
 							<textarea style="overflow:hidden" v-model = "post.post"> 
 							</textarea><br>
 							<span class="btn btn-default fa fa-copy fa-md" v-on:click.prevent = "confirmEdit(post.post)"> Edit</span>
-							<span class="btn btn-default fa fa-window-close fa-md" v-on:click.prevent = "cancelEdit"> Cancel</span>
+							<span class="btn btn-default fa fa-window-close fa-md"  v-on:click.prevent = "cancelEdit()"> Cancel</span>
 						</div>
 					</div>
 				</div>
@@ -91,18 +91,16 @@
 				seen 			: false,
 				status    : '',
 				message 	: '',
-				has_edited: true,
 				isSuccess : false,
 				isError 	: false,
 				posts 		: [],
 				isDeleted : false,
-				isEdited  : false,
 				post_id   : '',
 				user_id 	: '',
 				unlike    : {
 			    color: '#95a5a6',
 			  },
-			  like 		: {
+			  like 			: {
 			  	color: '#2980b9',
 			  },
 			}
@@ -173,8 +171,6 @@
 			},
 
 			editPost: function(id, uid){
-				this.has_edited = false
-				this.isEdited 	= true
 				this.post_id 	  = id
 				this.user_id 		= uid
 			},
@@ -198,13 +194,12 @@
 					}else{
 						if(response.data.code > 0){
 							this.getPost()
+							this.post_id 		= ''
 							this.isError 	 	= false
 							this.isSuccess 	= true
 							this.status  	 	= 'OKAY'
 							this.message 	 	= response.data.msg
 							this.seen  		 	= true
-							this.has_edited = true
-							this.isEdited 	= false
 
 							setTimeout(function () {
 							  this.seen = false
@@ -226,9 +221,8 @@
 				})
 			},
 
-			cancelEdit: function(){
-				this.has_edited = true
-				this.isEdited 	= false
+			cancelEdit: function(id){
+				this.post_id = ''
 				this.getPost()
 			},
 
@@ -304,10 +298,9 @@
 		width: 60%;
 	}
 	.name {
-		font-family: Courier New;
+		font-family: monospace;
 		font-size: 15px;
 		color: black !important;
-		font-weight: bold;
 	}
 
 	.well-sm {
