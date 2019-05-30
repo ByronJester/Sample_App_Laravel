@@ -47088,7 +47088,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.post {\n\twidth: 60%;\n}\n.name {\n\tfont-family: monospace;\n\tfont-size: 15px;\n\tcolor: black !important;\n}\n.well-sm {\n}\n.fa-thumbs-up {\n\twidth: 49%;\n\ttext-align: center;\n\tfloat: left;\n\tcolor: #2e86de;\n}\n.fa-comments {\n\twidth: 49%;\n\ttext-align: center;\n\tfloat: right;\n\tcolor: #00b894;\n}\n.alert{\n\tbottom: 0px;\n}\n.fa-edit{\n\tbackground-color: #2980b9;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-trash-alt {\n\tbackground-color: #eb4d4b;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-copy{\n\tbackground-color: #2980b9;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-window-close{\n\tbackground-color: #d63031;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-user {\n\tfont-size:50px;\n}\n.btn-success {\n\tbackground-color: #16a085;\n\tpadding-top: 9px;\n\tpadding-bottom: 11px;\n}\n.btn-primary {\n\tbackground-color: #2980b9;\n\tpadding-top: 9px;\n\tpadding-bottom: 11px;\n}\n.column {\n  float: center;\n  width: 15%;\n  padding: 0 5px;\n  position: fixed;\n}\n.row {\n\tmargin: 0 -5px;\n}\n.row:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n.alert-success{\n\tbackground-color: #00cec9;\n\tcolor: black;\n}\n.alert-danger{\n\tbackground-color: #ff7675;\n\tcolor: black;\n}\n.alert{\n\tbottom: 0px;\n\tposition: fixed;\n}\n@media screen and (max-width: 600px) {\n.column {\n    width: 100%;\n    display: block;\n    margin-bottom: 10px;\n    position: relative;\n}\n.alert{\n  \twidth: 100%;\n  \tdisplay: block;\n    margin-bottom: 10px;\n    position: relative;\n}\n}\n.card {\n  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n  padding: 16px;\n  text-align: center;\n  background-color: #444;\n  color: white;\n  height: 182px;\n}\ntextarea {\n\twidth: 100%;\n\theight: 100px;\n\tfont-family: Courier New;\n}\n.time {\n\tfont-family: Courier New;\n\ttext-align: right !important;\n\tfont-size: 12px;\n}\n.action {\n\tfloat: right;\n}\n.display_post {\n\toverflow-wrap: break-word;\n\theight : 100%;  \n\twidth: 100%; \n\tbackground-color: #ffffff;\n\tfont-family: Courier New;\n}\n.post_style{\n\tmargin-top: 2%;\n\tmargin-bottom: 10%;\n}\nh3, p, b{\n\tfont-family: Courier New;\n}\n\n", ""]);
+exports.push([module.i, "\n.post {\n\twidth: 60%;\n}\n.name {\n\tfont-family: monospace;\n\tfont-size: 15px;\n\tcolor: black !important;\n}\n.well-sm {\n}\n.fa-thumbs-up {\n\twidth: 49%;\n\ttext-align: center;\n\tfloat: left;\n}\n.fa-comments {\n\twidth: 49%;\n\ttext-align: center;\n\tfloat: right;\n\tcolor: #00b894;\n}\n.alert{\n\tbottom: 0px;\n}\n.fa-edit{\n\tbackground-color: #2980b9;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-trash-alt {\n\tbackground-color: #eb4d4b;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-copy{\n\tbackground-color: #2980b9;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-window-close{\n\tbackground-color: #d63031;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-user {\n\tfont-size:50px;\n}\n.fa-check-square{\n\tbackground-color: #2e86de;\n\tcolor: white;\n}\n.btn-success {\n\tbackground-color: #16a085;\n\tpadding-top: 9px;\n\tpadding-bottom: 11px;\n}\n.btn-primary {\n\tbackground-color: #2980b9;\n\tpadding-top: 9px;\n\tpadding-bottom: 11px;\n}\n.column {\n  float: center;\n  width: 15%;\n  padding: 0 5px;\n  position: fixed;\n}\n.row {\n\tmargin: 0 -5px;\n}\n.row:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n.alert-success{\n\tbackground-color: #00cec9;\n\tcolor: black;\n}\n.alert-danger{\n\tbackground-color: #ff7675;\n\tcolor: black;\n}\n.alert{\n\tbottom: 0px;\n\tposition: fixed;\n}\n@media screen and (max-width: 600px) {\n.column {\n    width: 100%;\n    display: block;\n    margin-bottom: 10px;\n    position: relative;\n}\n.alert{\n  \twidth: 100%;\n  \tdisplay: block;\n    margin-bottom: 10px;\n    position: relative;\n}\n}\n.card {\n  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n  padding: 16px;\n  text-align: center;\n  background-color: #444;\n  color: white;\n  height: 182px;\n}\ntextarea {\n\twidth: 100%;\n\theight: 100px;\n\tfont-family: Courier New;\n\toverflow:hidden;\n}\n.time {\n\tfont-family: Courier New;\n\ttext-align: right !important;\n\tfont-size: 12px;\n}\n.action {\n\tfloat: right;\n}\n.display_post {\n\toverflow-wrap: break-word;\n\theight : 100%;  \n\twidth: 100%; \n\tbackground-color: #ffffff;\n\tfont-family: Courier New;\n}\n.post_style{\n\tmargin-top: 2%;\n\tmargin-bottom: 15%;\n}\nh3, p, b{\n\tfont-family: Courier New;\n}\n.comment_style {\n\theight: 30px;\n}\n\n", ""]);
 
 // exports
 
@@ -47099,6 +47099,12 @@ exports.push([module.i, "\n.post {\n\twidth: 60%;\n}\n.name {\n\tfont-family: mo
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -47382,6 +47388,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}).then(function (response) {
 				_this5.getPost();
 			}).catch(function (error) {});
+		},
+
+		viewComment: function viewComment() {},
+
+		postComment: function postComment(id) {
+			alert(id);
+			alert(this.user.comment);
 		}
 
 	},
@@ -47417,7 +47430,6 @@ var render = function() {
                   expression: "user.post"
                 }
               ],
-              staticStyle: { overflow: "hidden" },
               attrs: { placeholder: "Whats on your mind ?" },
               domProps: { value: _vm.user.post },
               on: {
@@ -47497,142 +47509,172 @@ var render = function() {
           { staticClass: "col-md-6" },
           _vm._l(_vm.posts, function(post) {
             return _c("div", [
-              _c(
-                "div",
-                { staticClass: "well well-sm", staticStyle: { height: "" } },
-                [
-                  _c("h4", { staticClass: "time" }, [
-                    _vm._v(_vm._s(_vm._f("date")(post.created.date)))
-                  ]),
-                  _vm._v(" "),
-                  post.owner
-                    ? _c("div", { staticClass: "action" }, [
-                        _c("span", {
-                          staticClass: "btn btn-default fa fa-edit fa-md",
+              _c("div", { staticClass: "well well-sm" }, [
+                _c("h4", { staticClass: "time" }, [
+                  _vm._v(_vm._s(_vm._f("date")(post.created.date)))
+                ]),
+                _vm._v(" "),
+                post.owner
+                  ? _c("div", { staticClass: "action" }, [
+                      _c("span", {
+                        staticClass: "btn btn-default fa fa-edit fa-md",
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.editPost(post.post_id, post.user_id)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", {
+                        staticClass: "btn btn-default fa fa-trash-alt fa-md",
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.deletePost(post.post_id, post.user_id)
+                          }
+                        }
+                      })
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("a", { staticClass: "name", attrs: { href: "" } }, [
+                  _vm._v(" " + _vm._s(post.name) + " ")
+                ]),
+                _vm._v(" "),
+                post.post_id != _vm.post_id
+                  ? _c("div", { staticClass: "post_style" }, [
+                      _c("div", { staticClass: "well well-sm display_post" }, [
+                        _vm._v(
+                          "\r\n\t\t\t\t\t\t\t\t" +
+                            _vm._s(post.post) +
+                            " \r\n\t\t\t\t\t\t\t"
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          staticClass: "btn btn-default fa fa-thumbs-up fa-lg",
+                          style: [post.color ? _vm.like : _vm.unlike],
                           on: {
                             click: function($event) {
                               $event.preventDefault()
-                              return _vm.editPost(post.post_id, post.user_id)
+                              return _vm.likePost(post.post_id)
                             }
                           }
-                        }),
-                        _vm._v(" "),
-                        _c("span", {
-                          staticClass: "btn btn-default fa fa-trash-alt fa-md",
+                        },
+                        [
+                          _vm._v(
+                            " " + _vm._s(post.count) + "\r\n\t\t\t\t\t\t\t"
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          staticClass: "btn btn-default fa fa-comments fa-lg",
                           on: {
                             click: function($event) {
                               $event.preventDefault()
-                              return _vm.deletePost(post.post_id, post.user_id)
+                              return _vm.viewComment($event)
                             }
                           }
-                        })
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c("a", { staticClass: "name", attrs: { href: "" } }, [
-                    _vm._v(" " + _vm._s(post.name) + " ")
-                  ]),
-                  _vm._v(" "),
-                  post.post_id != _vm.post_id
-                    ? _c("div", { staticClass: "post_style" }, [
-                        _c(
-                          "div",
-                          { staticClass: "well well-sm display_post" },
-                          [
-                            _vm._v(
-                              "\r\n\t\t\t\t\t\t\t\t" +
-                                _vm._s(post.post) +
-                                " \r\n\t\t\t\t\t\t\t"
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "span",
+                        },
+                        [_vm._v(" 101")]
+                      )
+                    ])
+                  : _c("div", [
+                      _c("textarea", {
+                        directives: [
                           {
-                            staticClass:
-                              "btn btn-default fa fa-thumbs-up fa-lg",
-                            style: [post.color ? _vm.like : _vm.unlike],
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.likePost(post.post_id)
-                              }
+                            name: "model",
+                            rawName: "v-model",
+                            value: post.post,
+                            expression: "post.post"
+                          }
+                        ],
+                        domProps: { value: post.post },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
                             }
-                          },
-                          [
-                            _vm._v(
-                              " " + _vm._s(post.count) + "\r\n\t\t\t\t\t\t\t"
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            staticClass: "btn btn-default fa fa-comments fa-lg"
-                          },
-                          [_vm._v(" 101")]
-                        )
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  post.post_id == _vm.post_id
-                    ? _c("div", [
-                        _c("textarea", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: post.post,
-                              expression: "post.post"
-                            }
-                          ],
-                          staticStyle: { overflow: "hidden" },
-                          domProps: { value: post.post },
+                            _vm.$set(post, "post", $event.target.value)
+                          }
+                        }
+                      }),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          staticClass: "btn btn-default fa fa-copy fa-md",
                           on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(post, "post", $event.target.value)
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.confirmEdit(post.post)
                             }
                           }
-                        }),
-                        _c("br"),
-                        _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            staticClass: "btn btn-default fa fa-copy fa-md",
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.confirmEdit(post.post)
-                              }
+                        },
+                        [_vm._v(" Edit")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          staticClass:
+                            "btn btn-default fa fa-window-close fa-md",
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.cancelEdit()
                             }
-                          },
-                          [_vm._v(" Edit")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            staticClass:
-                              "btn btn-default fa fa-window-close fa-md",
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.cancelEdit()
-                              }
-                            }
-                          },
-                          [_vm._v(" Cancel")]
-                        )
-                      ])
-                    : _vm._e()
-                ]
-              )
+                          }
+                        },
+                        [_vm._v(" Cancel")]
+                      )
+                    ]),
+                _vm._v(" "),
+                _c("div", [
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.comment,
+                        expression: "user.comment"
+                      }
+                    ],
+                    staticClass: "comment_style",
+                    attrs: { placeholder: " Write a comment" },
+                    domProps: { value: _vm.user.comment },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.user, "comment", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      staticClass: "btn btn-default fa fa-check-square",
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.postComment(post.post_id)
+                        }
+                      }
+                    },
+                    [_vm._v(" COMMENT")]
+                  )
+                ])
+              ])
             ])
           }),
           0

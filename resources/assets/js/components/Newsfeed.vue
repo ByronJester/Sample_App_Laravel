@@ -5,7 +5,7 @@
 			<div class="col-sm-6">
 				<div class="well well-sm">
 					<b>Create Post</b>
-					<textarea style="overflow:hidden" placeholder="Whats on your mind ?" v-model = "user.post"> 
+					<textarea placeholder="Whats on your mind ?" v-model = "user.post"> 
 					</textarea><br>
 	
 					<span class="btn btn-primary fa fa-pencil-alt" v-on:click.prevent = "createPost">&nbsp Post </span>
@@ -52,7 +52,7 @@
 		<div class="col-md-12">
 			<div class="col-md-6">
 				<div v-for = "post in posts">
-					<div class="well well-sm" style="height: ;">
+					<div class="well well-sm">
 						<h4 class="time">{{post.created.date | date}}</h4>
 						<div v-if = "post.owner" class = "action">				
 							<span class = "btn btn-default fa fa-edit fa-md" v-on:click.prevent = "editPost(post.post_id, post.user_id)"></span>
@@ -66,19 +66,25 @@
 							<span class="btn btn-default fa fa-thumbs-up fa-lg" v-on:click.prevent = "likePost(post.post_id)" 
 								:style="[post.color ? like : unlike ]"> {{post.count}}
 							</span>
-							<span class="btn btn-default fa fa-comments fa-lg"> 101</span>
+							<span class="btn btn-default fa fa-comments fa-lg" v-on:click.prevent = "viewComment"> 101</span>
 						</div>
-						<div v-if = "post.post_id == post_id">
-							<textarea style="overflow:hidden" v-model = "post.post"> 
+						<div v-else>
+							<textarea v-model = "post.post"> 
 							</textarea><br>
 							<span class="btn btn-default fa fa-copy fa-md" v-on:click.prevent = "confirmEdit(post.post)"> Edit</span>
 							<span class="btn btn-default fa fa-window-close fa-md"  v-on:click.prevent = "cancelEdit()"> Cancel</span>
+						</div>
+						<div>
+							<textarea placeholder = " Write a comment" class="comment_style" v-model = "user.comment"> 
+							</textarea>
+					  	<span class="btn btn-default fa fa-check-square" v-on:click.prevent = "postComment(post.post_id)"> COMMENT</span>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 </div>
 </template> 
 
@@ -171,8 +177,8 @@
 			},
 
 			editPost: function(id, uid){
-				this.post_id 	  = id
-				this.user_id 		= uid
+				this.post_id = id
+				this.user_id = uid
 			},
 
 			confirmEdit: function(post){
@@ -281,6 +287,15 @@
 				}).catch(error => {
 
 				})
+			},
+
+			viewComment: function(){
+
+			},
+
+			postComment: function(id){
+				alert(id)
+				alert(this.user.comment)
 			}
 
 		},
@@ -310,7 +325,6 @@
 		width: 49%;
 		text-align: center;
 		float: left;
-		color: #2e86de;
 	}
 
 	.fa-comments {
@@ -323,7 +337,6 @@
 	.alert{
 		bottom: 0px;
 	}
-		
 
 	.fa-edit{
 		background-color: #2980b9;
@@ -351,6 +364,11 @@
 
 	.fa-user {
 		font-size:50px;
+	}
+
+	.fa-check-square{
+		background-color: #2e86de;
+		color: white;
 	}
 
 	.btn-success {
@@ -427,6 +445,7 @@
 		width: 100%;
 		height: 100px;
 		font-family: Courier New;
+		overflow:hidden;
 	}
 
 	.time {
@@ -449,11 +468,15 @@
 
 	.post_style{
 		margin-top: 2%;
-		margin-bottom: 10%;
+		margin-bottom: 15%;
 	}
 
 	h3, p, b{
 		font-family: Courier New;
+	}
+
+	.comment_style {
+		height: 30px;
 	}
 
 </style>
