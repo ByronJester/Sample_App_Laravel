@@ -5,7 +5,7 @@
 			<div class="col-sm-6">
 				<div class="well well-sm">
 					<b>Create Post</b>
-					<textarea placeholder="Whats on your mind ?" v-model = "user.post"> 
+					<textarea placeholder="Whats on your mind ?" v-model.trim = "user.post"> 
 					</textarea><br>
 	
 					<span class="btn btn-primary fa fa-pencil-alt" v-on:click.prevent = "createPost">&nbsp Post </span>
@@ -56,28 +56,36 @@
 						<h4 class="time">{{post.created.date | date}}</h4>
 						<div v-if = "post.owner" class = "action">				
 							<span class = "btn btn-default fa fa-edit fa-md" v-on:click.prevent = "editPost(post.post_id, post.user_id)"></span>
-							<span class = "btn btn-default fa fa-trash-alt fa-md" v-on:click.prevent = "deletePost(post.post_id, post.user_id)"></span>
+							<span class = "btn btn-default fa fa-trash-alt fa-md" v-on:click.prevent = "deletePost(post.post_id, post.user_id)"></span><br>
 						</div>
 						<a class="name" href=""> {{post.name}} </a>
 						<div v-if = "post.post_id != post_id" class="post_style">
-							<div class="well well-sm display_post">
-								{{post.post}} 
+							<div class="well well-sm display_post" :style = "[post.post.length > 200 ? p_heigth : false]">
+								<a v-if = "post.post.length > 200 " v-on:click = "[p_heigth.height = '', p_heigth.overflow = '', see_more = true]" 
+									:hidden = "see_more"> 
+									See more...
+								</a>
+								<a v-if = "see_more" v-on:click = "[p_heigth.height = '100px', p_heigth.overflow = 'hidden', see_more = false]">
+									See less...
+								</a>
+								{{post.post}}
 							</div>
 							<span class="btn btn-default fa fa-thumbs-up fa-lg" v-on:click.prevent = "likePost(post.post_id)" 
 								:style="[post.color ? like : unlike ]"> {{post.count}}
 							</span>
-							<span class="btn btn-default fa fa-comments fa-lg" v-on:click.prevent = "viewComment"> 101</span>
+							<span class="btn btn-default fa fa-comments fa-lg" v-on:click.prevent = "viewComment(post.post_id)"> 0</span>
 						</div>
 						<div v-else>
-							<textarea v-model = "post.post"> 
+							<textarea v-model.trim = "post.post"> 
 							</textarea><br>
 							<span class="btn btn-default fa fa-copy fa-md" v-on:click.prevent = "confirmEdit(post.post)"> Edit</span>
-							<span class="btn btn-default fa fa-window-close fa-md"  v-on:click.prevent = "cancelEdit()"> Cancel</span>
+							<span class="btn btn-default fa fa-window-close fa-md"  v-on:click.prevent = "[post_id = '', getPost()]"> Cancel</span>
 						</div>
-						<div>
-							<textarea placeholder = " Write a comment" class="comment_style" v-model = "user.comment"> 
+						<div v-if = "post.post_id == p_id">
+							<textarea placeholder = " Write a comment" class="comment_style" v-model.trim = "comment"> 
 							</textarea>
-					  	<span class="btn btn-default fa fa-check-square" v-on:click.prevent = "postComment(post.post_id)"> COMMENT</span>
+					  	<span class="btn btn-default fa fa-check-square" v-on:click.prevent = "postComment(post.post_id)"> Comment</span>
+					  	<span class="btn btn-default fa fa-comment-slash" v-on:click.prevent = "p_id = ''"> Cancel</span>
 						</div>
 					</div>
 				</div>
@@ -109,6 +117,15 @@
 			  like 			: {
 			  	color: '#2980b9',
 			  },
+			  p_heigth 	: {
+			  	height  : '100px',
+			  	overflow: 'hidden'
+			  },
+			  see_more  : false,
+			  p_id 			: '',
+			  comment  	: '',
+			  
+
 			}
 		},
 
@@ -179,6 +196,7 @@
 			editPost: function(id, uid){
 				this.post_id = id
 				this.user_id = uid
+				this.p_id 	 = ''
 			},
 
 			confirmEdit: function(post){
@@ -225,11 +243,6 @@
 				}).catch(error => {
 
 				})
-			},
-
-			cancelEdit: function(id){
-				this.post_id = ''
-				this.getPost()
 			},
 
 			deletePost: function(id, uid){
@@ -289,13 +302,13 @@
 				})
 			},
 
-			viewComment: function(){
-
+			viewComment: function(id){
+				this.p_id = id
 			},
 
 			postComment: function(id){
 				alert(id)
-				alert(this.user.comment)
+				alert(this.comment)
 			}
 
 		},
@@ -304,6 +317,12 @@
 			date: function(date){
 				return date.slice(0, 10)
 			},
+
+			long: function(post){
+				alert(post.length)
+
+				return post
+			}
 		}
 	}
 </script>
@@ -368,6 +387,11 @@
 
 	.fa-check-square{
 		background-color: #2e86de;
+		color: white;
+	}
+
+	.fa-comment-slash{
+		background-color: #d63031;
 		color: white;
 	}
 
@@ -460,7 +484,6 @@
 
 	.display_post {
 		overflow-wrap: break-word;
-		height : 100%;  
 		width: 100%; 
 		background-color: #ffffff;
 		font-family: Courier New;
@@ -471,8 +494,12 @@
 		margin-bottom: 15%;
 	}
 
-	h3, p, b{
+	h3, p, b, a{
 		font-family: Courier New;
+	}
+
+	a {
+		color: black !important;
 	}
 
 	.comment_style {

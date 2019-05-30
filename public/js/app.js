@@ -47088,7 +47088,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.post {\n\twidth: 60%;\n}\n.name {\n\tfont-family: monospace;\n\tfont-size: 15px;\n\tcolor: black !important;\n}\n.well-sm {\n}\n.fa-thumbs-up {\n\twidth: 49%;\n\ttext-align: center;\n\tfloat: left;\n}\n.fa-comments {\n\twidth: 49%;\n\ttext-align: center;\n\tfloat: right;\n\tcolor: #00b894;\n}\n.alert{\n\tbottom: 0px;\n}\n.fa-edit{\n\tbackground-color: #2980b9;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-trash-alt {\n\tbackground-color: #eb4d4b;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-copy{\n\tbackground-color: #2980b9;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-window-close{\n\tbackground-color: #d63031;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-user {\n\tfont-size:50px;\n}\n.fa-check-square{\n\tbackground-color: #2e86de;\n\tcolor: white;\n}\n.btn-success {\n\tbackground-color: #16a085;\n\tpadding-top: 9px;\n\tpadding-bottom: 11px;\n}\n.btn-primary {\n\tbackground-color: #2980b9;\n\tpadding-top: 9px;\n\tpadding-bottom: 11px;\n}\n.column {\n  float: center;\n  width: 15%;\n  padding: 0 5px;\n  position: fixed;\n}\n.row {\n\tmargin: 0 -5px;\n}\n.row:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n.alert-success{\n\tbackground-color: #00cec9;\n\tcolor: black;\n}\n.alert-danger{\n\tbackground-color: #ff7675;\n\tcolor: black;\n}\n.alert{\n\tbottom: 0px;\n\tposition: fixed;\n}\n@media screen and (max-width: 600px) {\n.column {\n    width: 100%;\n    display: block;\n    margin-bottom: 10px;\n    position: relative;\n}\n.alert{\n  \twidth: 100%;\n  \tdisplay: block;\n    margin-bottom: 10px;\n    position: relative;\n}\n}\n.card {\n  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n  padding: 16px;\n  text-align: center;\n  background-color: #444;\n  color: white;\n  height: 182px;\n}\ntextarea {\n\twidth: 100%;\n\theight: 100px;\n\tfont-family: Courier New;\n\toverflow:hidden;\n}\n.time {\n\tfont-family: Courier New;\n\ttext-align: right !important;\n\tfont-size: 12px;\n}\n.action {\n\tfloat: right;\n}\n.display_post {\n\toverflow-wrap: break-word;\n\theight : 100%;  \n\twidth: 100%; \n\tbackground-color: #ffffff;\n\tfont-family: Courier New;\n}\n.post_style{\n\tmargin-top: 2%;\n\tmargin-bottom: 15%;\n}\nh3, p, b{\n\tfont-family: Courier New;\n}\n.comment_style {\n\theight: 30px;\n}\n\n", ""]);
+exports.push([module.i, "\n.post {\n\twidth: 60%;\n}\n.name {\n\tfont-family: monospace;\n\tfont-size: 15px;\n\tcolor: black !important;\n}\n.well-sm {\n}\n.fa-thumbs-up {\n\twidth: 49%;\n\ttext-align: center;\n\tfloat: left;\n}\n.fa-comments {\n\twidth: 49%;\n\ttext-align: center;\n\tfloat: right;\n\tcolor: #00b894;\n}\n.alert{\n\tbottom: 0px;\n}\n.fa-edit{\n\tbackground-color: #2980b9;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-trash-alt {\n\tbackground-color: #eb4d4b;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-copy{\n\tbackground-color: #2980b9;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-window-close{\n\tbackground-color: #d63031;\n\tcolor: white;\n\tmargin-bottom: 5px;\n}\n.fa-user {\n\tfont-size:50px;\n}\n.fa-check-square{\n\tbackground-color: #2e86de;\n\tcolor: white;\n}\n.fa-comment-slash{\n\tbackground-color: #d63031;\n\tcolor: white;\n}\n.btn-success {\n\tbackground-color: #16a085;\n\tpadding-top: 9px;\n\tpadding-bottom: 11px;\n}\n.btn-primary {\n\tbackground-color: #2980b9;\n\tpadding-top: 9px;\n\tpadding-bottom: 11px;\n}\n.column {\n  float: center;\n  width: 15%;\n  padding: 0 5px;\n  position: fixed;\n}\n.row {\n\tmargin: 0 -5px;\n}\n.row:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n.alert-success{\n\tbackground-color: #00cec9;\n\tcolor: black;\n}\n.alert-danger{\n\tbackground-color: #ff7675;\n\tcolor: black;\n}\n.alert{\n\tbottom: 0px;\n\tposition: fixed;\n}\n@media screen and (max-width: 600px) {\n.column {\n    width: 100%;\n    display: block;\n    margin-bottom: 10px;\n    position: relative;\n}\n.alert{\n  \twidth: 100%;\n  \tdisplay: block;\n    margin-bottom: 10px;\n    position: relative;\n}\n}\n.card {\n  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n  padding: 16px;\n  text-align: center;\n  background-color: #444;\n  color: white;\n  height: 182px;\n}\ntextarea {\n\twidth: 100%;\n\theight: 100px;\n\tfont-family: Courier New;\n\toverflow:hidden;\n}\n.time {\n\tfont-family: Courier New;\n\ttext-align: right !important;\n\tfont-size: 12px;\n}\n.action {\n\tfloat: right;\n}\n.display_post {\n\toverflow-wrap: break-word;\n\twidth: 100%; \n\tbackground-color: #ffffff;\n\tfont-family: Courier New;\n}\n.post_style{\n\tmargin-top: 2%;\n\tmargin-bottom: 15%;\n}\nh3, p, b, a{\n\tfont-family: Courier New;\n}\na {\n\tcolor: black !important;\n}\n.comment_style {\n\theight: 30px;\n}\n\n", ""]);
 
 // exports
 
@@ -47099,6 +47099,14 @@ exports.push([module.i, "\n.post {\n\twidth: 60%;\n}\n.name {\n\tfont-family: mo
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -47209,7 +47217,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			},
 			like: {
 				color: '#2980b9'
-			}
+			},
+			p_heigth: {
+				height: '100px',
+				overflow: 'hidden'
+			},
+			see_more: false,
+			p_id: '',
+			comment: ''
+
 		};
 	},
 
@@ -47281,6 +47297,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		editPost: function editPost(id, uid) {
 			this.post_id = id;
 			this.user_id = uid;
+			this.p_id = '';
 		},
 
 		confirmEdit: function confirmEdit(post) {
@@ -47327,11 +47344,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					}
 				}
 			}).catch(function (error) {});
-		},
-
-		cancelEdit: function cancelEdit(id) {
-			this.post_id = '';
-			this.getPost();
 		},
 
 		deletePost: function deletePost(id, uid) {
@@ -47390,11 +47402,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}).catch(function (error) {});
 		},
 
-		viewComment: function viewComment() {},
+		viewComment: function viewComment(id) {
+			this.p_id = id;
+		},
 
 		postComment: function postComment(id) {
 			alert(id);
-			alert(this.user.comment);
+			alert(this.comment);
 		}
 
 	},
@@ -47402,6 +47416,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	filters: {
 		date: function date(_date) {
 			return _date.slice(0, 10);
+		},
+
+		long: function long(post) {
+			alert(post.length);
+
+			return post;
 		}
 	}
 });
@@ -47425,9 +47445,10 @@ var render = function() {
               directives: [
                 {
                   name: "model",
-                  rawName: "v-model",
+                  rawName: "v-model.trim",
                   value: _vm.user.post,
-                  expression: "user.post"
+                  expression: "user.post",
+                  modifiers: { trim: true }
                 }
               ],
               attrs: { placeholder: "Whats on your mind ?" },
@@ -47437,7 +47458,10 @@ var render = function() {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.user, "post", $event.target.value)
+                  _vm.$set(_vm.user, "post", $event.target.value.trim())
+                },
+                blur: function($event) {
+                  return _vm.$forceUpdate()
                 }
               }
             }),
@@ -47534,7 +47558,8 @@ var render = function() {
                             return _vm.deletePost(post.post_id, post.user_id)
                           }
                         }
-                      })
+                      }),
+                      _c("br")
                     ])
                   : _vm._e(),
                 _vm._v(" "),
@@ -47544,13 +47569,64 @@ var render = function() {
                 _vm._v(" "),
                 post.post_id != _vm.post_id
                   ? _c("div", { staticClass: "post_style" }, [
-                      _c("div", { staticClass: "well well-sm display_post" }, [
-                        _vm._v(
-                          "\r\n\t\t\t\t\t\t\t\t" +
-                            _vm._s(post.post) +
-                            " \r\n\t\t\t\t\t\t\t"
-                        )
-                      ]),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "well well-sm display_post",
+                          style: [post.post.length > 200 ? _vm.p_heigth : false]
+                        },
+                        [
+                          post.post.length > 200
+                            ? _c(
+                                "a",
+                                {
+                                  attrs: { hidden: _vm.see_more },
+                                  on: {
+                                    click: function($event) {
+                                      ;[
+                                        (_vm.p_heigth.height = ""),
+                                        (_vm.p_heigth.overflow = ""),
+                                        (_vm.see_more = true)
+                                      ]
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    " \r\n\t\t\t\t\t\t\t\t\tSee more...\r\n\t\t\t\t\t\t\t\t"
+                                  )
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.see_more
+                            ? _c(
+                                "a",
+                                {
+                                  on: {
+                                    click: function($event) {
+                                      ;[
+                                        (_vm.p_heigth.height = "100px"),
+                                        (_vm.p_heigth.overflow = "hidden"),
+                                        (_vm.see_more = false)
+                                      ]
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\r\n\t\t\t\t\t\t\t\t\tSee less...\r\n\t\t\t\t\t\t\t\t"
+                                  )
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(
+                            "\r\n\t\t\t\t\t\t\t\t" +
+                              _vm._s(post.post) +
+                              "\r\n\t\t\t\t\t\t\t"
+                          )
+                        ]
+                      ),
                       _vm._v(" "),
                       _c(
                         "span",
@@ -47578,11 +47654,11 @@ var render = function() {
                           on: {
                             click: function($event) {
                               $event.preventDefault()
-                              return _vm.viewComment($event)
+                              return _vm.viewComment(post.post_id)
                             }
                           }
                         },
-                        [_vm._v(" 101")]
+                        [_vm._v(" 0")]
                       )
                     ])
                   : _c("div", [
@@ -47590,9 +47666,10 @@ var render = function() {
                         directives: [
                           {
                             name: "model",
-                            rawName: "v-model",
+                            rawName: "v-model.trim",
                             value: post.post,
-                            expression: "post.post"
+                            expression: "post.post",
+                            modifiers: { trim: true }
                           }
                         ],
                         domProps: { value: post.post },
@@ -47601,7 +47678,10 @@ var render = function() {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.$set(post, "post", $event.target.value)
+                            _vm.$set(post, "post", $event.target.value.trim())
+                          },
+                          blur: function($event) {
+                            return _vm.$forceUpdate()
                           }
                         }
                       }),
@@ -47629,7 +47709,7 @@ var render = function() {
                           on: {
                             click: function($event) {
                               $event.preventDefault()
-                              return _vm.cancelEdit()
+                              ;[(_vm.post_id = ""), _vm.getPost()]
                             }
                           }
                         },
@@ -47637,43 +47717,63 @@ var render = function() {
                       )
                     ]),
                 _vm._v(" "),
-                _c("div", [
-                  _c("textarea", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.user.comment,
-                        expression: "user.comment"
-                      }
-                    ],
-                    staticClass: "comment_style",
-                    attrs: { placeholder: " Write a comment" },
-                    domProps: { value: _vm.user.comment },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                post.post_id == _vm.p_id
+                  ? _c("div", [
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model.trim",
+                            value: _vm.comment,
+                            expression: "comment",
+                            modifiers: { trim: true }
+                          }
+                        ],
+                        staticClass: "comment_style",
+                        attrs: { placeholder: " Write a comment" },
+                        domProps: { value: _vm.comment },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.comment = $event.target.value.trim()
+                          },
+                          blur: function($event) {
+                            return _vm.$forceUpdate()
+                          }
                         }
-                        _vm.$set(_vm.user, "comment", $event.target.value)
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      staticClass: "btn btn-default fa fa-check-square",
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          return _vm.postComment(post.post_id)
-                        }
-                      }
-                    },
-                    [_vm._v(" COMMENT")]
-                  )
-                ])
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          staticClass: "btn btn-default fa fa-check-square",
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.postComment(post.post_id)
+                            }
+                          }
+                        },
+                        [_vm._v(" Comment")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          staticClass: "btn btn-default fa fa-comment-slash",
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              _vm.p_id = ""
+                            }
+                          }
+                        },
+                        [_vm._v(" Cancel")]
+                      )
+                    ])
+                  : _vm._e()
               ])
             ])
           }),
